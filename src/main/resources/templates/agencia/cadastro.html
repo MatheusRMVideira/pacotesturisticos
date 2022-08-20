@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><i class="oi oi-caret-right"></i>
+						<span th:text="#{agencia.cadastrar.label}"></span></li>
+				</ul>
+				<a class="btn btn-primary btn-md" th:href="@{/agencia/listar}"
+					role="button"> <span class="oi oi-spreadsheet" title="Listar"
+					aria-hidden="true"></span> <span th:text="#{editora.listar.label}"></span>
+				</a>
+			</div>
+		</nav>
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+
+			<form
+				th:action="${agencia.id == null} ? @{/agencia/salvar} : @{/agencia/editar}"
+				th:object="${agencia}" method="POST">
+
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label th:text="#{agencia.email.label}" for="email"></label> 
+						<input type="text" class="form-control" id="email" autofocus="autofocus"
+							th:field="*{email}" th:placeholder="#{agencia.email.label}"
+							th:classappend="${#fields.hasErrors('email')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{email}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{agencia.senha.label}" for="senha"></label> 
+						<input type="text" class="form-control" id="senha" autofocus="autofocus"
+							th:field="*{senha}" th:placeholder="#{agencia.senha.label}"
+							th:classappend="${#fields.hasErrors('senha')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{senha}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{agencia.cnpj.label}" for="cnpj"></label> 
+						<input type="text" class="form-control" id="cnpj" autofocus="autofocus"
+							th:field="*{cnpj}" placeholder="__.___.___/____-__"
+							data-mask="00.000.000/0000-00" data-mask-reverse="true"
+							th:classappend="${#fields.hasErrors('cnpj')} ? is-invalid" />
+							
+						<div class="invalid-feedback">
+							<span th:errors="*{cnpj}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{agencia.nome.label}" for="nome"></label> 
+						<input type="text" class="form-control" id="nome" autofocus="autofocus"
+							th:field="*{nome}" th:placeholder="#{agencia.nome.label}"
+							th:classappend="${#fields.hasErrors('nome')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{nome}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{agencia.descricao.label}" for="descricao"></label> 
+						<input type="text" class="form-control" id="descricao" autofocus="autofocus"
+							th:field="*{descricao}" th:placeholder="#{agencia.descricao.label}"
+							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{descricao}"></span>
+						</div>
+					</div>
+
+					
+				</div>
+
+				<input type="hidden" id="id" th:field="*{id}" />
+				<button type="submit" th:text="#{button.salvar.label}"
+					class="btn btn-primary btn-sm"></button>
+			</form>
+		</div>
+	</section>
+</body>
+</html>
