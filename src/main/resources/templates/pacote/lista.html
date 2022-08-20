@@ -10,13 +10,13 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
 						<i class="oi oi-caret-right"></i>
-						<span th:text="#{livro.listar.label}"></span>
+						<span th:text="#{pacote.listar.label}"></span>
 					</li>
 				</ul>
 			</div>
-			<a class="btn btn-primary btn-md" th:href="@{/livros/cadastrar}" role="button"> 
+			<a class="btn btn-primary btn-md" th:href="@{/pacotes/cadastrar}" role="button"> 
 				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
-				<span th:text="#{livro.cadastrar.label}"></span>
+				<span th:text="#{pacote.cadastrar.label}"></span>
 			</a>
 		</nav>
 
@@ -29,28 +29,36 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th th:text="#{livro.titulo.label}"></th>
-							<th th:text="#{livro.autor.label}"></th>
-							<th th:text="#{livro.editora.label}"></th>
-							<th th:text="#{livro.ano.label}"></th>
-							<th th:text="#{livro.preco.label}"></th>
+							<th th:text="#{pacote.cidade.label}"></th>
+							<th th:text="#{pacote.estado.label}"></th>
+							<th th:text="#{pacote.pais.label}"></th>
+							<th th:text="#{pacote.dataPartida.label}"></th>
+							<th th:text="#{pacote.duracao.label}"></th>
+							<th th:text="#{pacote.valor.label}"></th>							
+							<th th:text="#{pacote.agencia.label}"></th>
+							<th th:text="#{pacote.descricao.label}"></th>
+							<th th:text="#{pacote.imagem.label}"></th>
 							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
 					<tbody>						
-						<tr th:each="livro : ${livros}">
-							<td th:text="${livro.id}"></td>
-							<td th:text="${livro.titulo}"></td>
-							<td th:text="${livro.autor}"></td>
-							<td th:text="${livro.editora.nome}"></td>
-							<td th:text="${livro.ano}"></td>
-							<td th:text="|R$ ${#numbers.formatDecimal(livro.preco,2,2,'COMMA')}|"></td>
+						<tr th:each="pacote : ${pacotes}">
+							<td th:text="${pacote.id}"></td>
+							<td th:text="${pacote.cidade}"></td>
+							<td th:text="${pacote.estado}"></td>
+							<td th:text="${pacote.pais}"></td>
+							<td th:text="${pacote.partida}"></td>
+							<td th:text="${pacote.duracao}"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
+							<td th:text="${pacote.agencia.nome}"></td>
+							<td th:text="${pacote.descricao}"></td>
+							<td th:text="${pacote.imagem}"></td> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
-									th:href="@{/livros/editar/{id} (id=${livro.id}) }" role="button"> 
+									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 
 									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"></span>
 								</a>
-								<button th:id="${#strings.concat('btn_livros/excluir/',livro.id)}" 
+								<button th:id="${#strings.concat('btn_pacotes/excluir/',pacote.id)}" 
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
 									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
 								</button>
