@@ -1,0 +1,13 @@
+# TO DO:
+- Fazer views de cadastro e listas
+- Fazer view de compra
+- Fazer lógica de compra
+- Fazer lógica das imagens (como fazer? upload ou link?)
+- Lista de pacote por agencia
+- Lista de compras de um cliente
+- Filtros de pacotes por destino, agencia ou data de partida
+- Filtro de pacotes por data vigente
+- LOGIN: administrador, cliente, agencia
+- Aparecer pacotes cancelados (tabela de compras)
+- Só cancelar pacotes com no minino 5 dias
+- Tratamento de erros
