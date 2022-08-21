@@ -57,9 +57,9 @@ public class Cliente extends AbstractEntity<Long>{
     @Column(nullable = false, length = 10)
     private String dataNascimento;
 
-    @NotNull(message = "{NotNull.cliente.tipo}")
+    @NotBlank(message = "{NotBlank.cliente.tipo}")
     @Column(nullable = false)
-    private char tipo;
+    private String tipo;
 
     @OneToMany(mappedBy = "cliente")
     private List<Compra> compras;
@@ -120,11 +120,11 @@ public class Cliente extends AbstractEntity<Long>{
         this.dataNascimento = dataNascimento;
     }
 
-    public char getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

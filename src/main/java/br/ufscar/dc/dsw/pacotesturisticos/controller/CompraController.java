@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.core.context.SecurityContextHolder;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
+import br.ufscar.dc.dsw.pacotesturisticos.security.UsuarioDetails;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
 
@@ -25,20 +28,31 @@ public class CompraController {
     @Autowired
     private IPacoteService pacoteService;
 
-    @GetMapping("/detalhes")
-    public String detalhes(ModelMap model) {
-        model.addAttribute("pacotes", pacoteService.findAll());
+    @GetMapping("/detalhes/{id}")
+    public String detalhes(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("pacotes", pacoteService.findById(id));
         return "compra/detalhes";
     }
 
-    @PostMapping("/realizar")
-    public String realizar(@Valid Compra compra, BindingResult result, RedirectAttributes attributes) {
+    @PostMapping("/insere")
+    public String insere(@Valid Compra compra, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "compra/detalhes";
         }
         compraService.save(compra);
         attributes.addFlashAttribute("sucess", "Compra realizada com sucesso!");
         return "redirect:/compra/detalhes";
+    }
+
+    private Cliente getUsuario() {
+        UsuarioDetails usuarioDetails = (UsuarioDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return usuarioDetails.getCliente();
+    }
+
+    @GetMapping("/listar")
+    public String listar(ModelMap model){
+        model.addAttribute("compras", compraService.findByCliente(this.getUsuario().getId()));
+        return "compra/lista";
     }
 
     @GetMapping("/excluir/{id}")
