@@ -37,13 +37,14 @@ body {
  */
 .sidebar {
     width: 0px;
-    height: 110vh;
+    height: 70vh;
     border-top: 1px solid #eee;
     border-right: 1px solid #eee;    
     background-color: #f8f9fa;
     flex-shrink: 0;
     overflow: hidden;
     transition: width .5s;
+    overflow-y: scroll;
 }
 
 .sidebar .nav {
