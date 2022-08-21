@@ -14,7 +14,7 @@
 					</li>
 				</ul>
 			</div>
-			<a class="btn btn-primary btn-md" th:href="@{/pacotes/cadastrar}" role="button"> 
+			<a class="btn btn-primary btn-md" th:href="@{/pacote/cadastrar}" role="button"> 
 				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
 				<span th:text="#{pacote.cadastrar.label}"></span>
 			</a>
@@ -34,7 +34,7 @@
 							<th th:text="#{pacote.pais.label}"></th>
 							<th th:text="#{pacote.dataPartida.label}"></th>
 							<th th:text="#{pacote.duracao.label}"></th>
-							<th th:text="#{pacote.valor.label}"></th>							
+							<th th:text="#{pacote.preco.label}"></th>							
 							<th th:text="#{pacote.agencia.label}"></th>
 							<th th:text="#{pacote.descricao.label}"></th>
 							<th th:text="#{pacote.imagem.label}"></th>
@@ -52,7 +52,7 @@
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
 							<td th:text="${pacote.agencia.nome}"></td>
 							<td th:text="${pacote.descricao}"></td>
-							<td th:text="${pacote.imagem}"></td> <!-- TO DO: loop para imagens -->
+							<td th:src="${pacote.imagem.link}" style="width:10px; height:10px;"></td> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 

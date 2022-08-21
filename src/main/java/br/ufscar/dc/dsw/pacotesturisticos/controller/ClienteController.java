@@ -20,7 +20,7 @@ public class ClienteController {
     @Autowired
     private IClienteService clienteService;
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastrar")
     public String cadastro(Cliente cliente) {
         return "cliente/cadastro";
     }

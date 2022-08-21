@@ -24,7 +24,7 @@ public class PacoteController {
     @Autowired
     private IImagemService imagemService;
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastrar")
     public String cadastro(Pacote pacote) {
         return "pacote/cadastro";
     }

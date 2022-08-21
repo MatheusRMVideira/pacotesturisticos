@@ -20,7 +20,7 @@ public class AgenciaController {
     @Autowired
     private IAgenciaService agenciaService;
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastrar")
     public String cadastro(Agencia agencia) {
         return "agencia/cadastro";
     }
