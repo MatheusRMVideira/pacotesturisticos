@@ -76,12 +76,12 @@ public class CompraController {
         Compra compra = compraService.findById(id);
         LocalDate dataPartida = LocalDate.parse(compra.getPacote().getPartida());
         if(dataPartida.isBefore(LocalDate.now())){
-            attributes.addFlashAttribute("error", "Não é possível cancelar uma viagem que já aconteceu");
+            attributes.addFlashAttribute("fail", "Não é possível cancelar uma viagem que já aconteceu");
             return "redirect:/compra/listar";
         }
         dataPartida = dataPartida.minusDays(5);
         if(dataPartida.isBefore(LocalDate.now())){
-            attributes.addFlashAttribute("error", "Só é possível cancelar uma viagem com 5 dias de antecedência");
+            attributes.addFlashAttribute("fail", "Só é possível cancelar uma viagem com 5 dias de antecedência");
             return "redirect:/compra/listar";
         }
         compra.setAtivo(false);

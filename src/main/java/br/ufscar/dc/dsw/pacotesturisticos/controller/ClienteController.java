@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IClienteService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
+
 
 @Controller
 @RequestMapping("/cliente")
@@ -25,6 +28,9 @@ public class ClienteController {
 
     @Autowired
     private ICompraService compraService;
+    
+    @Autowired
+    private IAgenciaService agenciaService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -46,6 +52,17 @@ public class ClienteController {
         if (result.hasErrors()) {
             return "cliente/cadastro";
         }
+        Cliente cliente2 = clienteService.findByEmail(cliente.getEmail());
+        Agencia agencia2 = agenciaService.findByEmail(cliente.getEmail());
+        if (cliente2 != null || agencia2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/cliente/cadastrar";
+        }
+        cliente2 = clienteService.findByCpf(cliente.getCpf());
+        if (cliente2 != null) {
+            attributes.addFlashAttribute("fail", "CPF já cadastrado!");
+            return "redirect:/cliente/cadastrar";
+        }
         cliente.setSenha(encoder.encode(cliente.getSenha()));
         clienteService.save(cliente);
         attributes.addFlashAttribute("sucess", "Cliente salvo com sucesso!");
@@ -62,6 +79,17 @@ public class ClienteController {
     public String editar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "cliente/cadastro";
+        }
+        Cliente cliente2 = clienteService.findByEmail(cliente.getEmail());
+        Agencia agencia2 = agenciaService.findByEmail(cliente.getEmail());
+        if ((cliente2 != null && !cliente2.getId().equals(cliente.getId())) || agencia2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/cliente/cadastrar";
+        }
+        cliente2 = clienteService.findByCpf(cliente.getCpf());
+        if (cliente2 != null && !cliente2.getId().equals(cliente.getId())) {
+            attributes.addFlashAttribute("fail", "CPF já cadastrado!");
+            return "redirect:/cliente/cadastrar";
         }
         clienteService.save(cliente);
         attributes.addFlashAttribute("sucess", "Cliente editado com sucesso!");

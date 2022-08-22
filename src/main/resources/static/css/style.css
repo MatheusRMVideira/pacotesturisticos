@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-	padding-top: 20px;
+	padding-top: 56px;
 	padding-left: 0;
 } 
 
@@ -15,6 +15,7 @@ body {
  */
 .layout-main {
     display: flex;
+    min-height: calc(80vh - 52px);
     overflow: hidden;
 }
 
@@ -28,7 +29,7 @@ body {
 
 .container {
 	width: 100%;
-	padding-top: 0px;
+	padding-top: 20px;
 }
 
 /*
@@ -39,7 +40,7 @@ body {
     height: 70vh;
     border-top: 1px solid #eee;
     border-right: 1px solid #eee;    
-    background-color: #ebfff2;
+    background-color: #f8f9fa;
     flex-shrink: 0;
     overflow: hidden;
     transition: width .5s;
@@ -63,7 +64,7 @@ body {
 } 
 
 .sidebar ul li:hover a, .menu ul li.active a{
-    color: #969696;
+    color: #e47c7c;
 }
 
 .sidebar ul{
@@ -87,7 +88,7 @@ body {
  */
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
 	color: #fff;
-	background-color: #2e722c;
+	background-color: #d2571e;
 }
 
 /*
@@ -115,6 +116,6 @@ body {
 .footer-copy {
 	font-size: 92%;
 	display: block;
-	color: #252525;
+	color: #744848;
 	text-align: center;
 }

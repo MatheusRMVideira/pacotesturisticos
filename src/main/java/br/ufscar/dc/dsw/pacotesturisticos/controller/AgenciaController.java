@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IClienteService;
 
 @Controller
 @RequestMapping("/agencia")
@@ -30,6 +32,9 @@ public class AgenciaController {
 
     @Autowired
     private ICompraService compraService;
+
+    @Autowired
+    private IClienteService clienteService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -50,6 +55,17 @@ public class AgenciaController {
         if (result.hasErrors()) {
             return "agencia/cadastro";
         }
+        Agencia agencia2 = agenciaService.findByEmail(agencia.getEmail());
+        Cliente cliente2 = clienteService.findByEmail(agencia.getEmail());
+        if (agencia2 != null || cliente2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
+        agencia2 = agenciaService.findByCnpj(agencia.getCnpj());
+        if(agencia2 != null){
+            attributes.addFlashAttribute("fail", "CNPJ já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
         agencia.setSenha(encoder.encode(agencia.getSenha()));
         agenciaService.save(agencia);
         attributes.addFlashAttribute("sucess", "Agencia salva com sucesso!");
@@ -66,6 +82,17 @@ public class AgenciaController {
     public String editar(@Valid Agencia agencia, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "agencia/cadastro";
+        }
+        Agencia agencia2 = agenciaService.findByEmail(agencia.getEmail());
+        Cliente cliente2 = clienteService.findByEmail(agencia.getEmail());
+        if ((agencia2 != null && !agencia2.getId().equals(agencia.getId())) || cliente2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
+        agencia2 = agenciaService.findByCnpj(agencia.getCnpj());
+        if(agencia2 != null && !agencia2.getId().equals(agencia.getId())){
+            attributes.addFlashAttribute("fail", "CNPJ já cadastrado!");
+            return "redirect:/agencia/cadastrar";
         }
         agenciaService.save(agencia);
         attributes.addFlashAttribute("sucess", "Agencia editada com sucesso!");
