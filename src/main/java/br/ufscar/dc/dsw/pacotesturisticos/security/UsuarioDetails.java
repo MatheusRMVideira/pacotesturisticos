@@ -35,12 +35,20 @@ public class UsuarioDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return cliente.getSenha();
+        if(cliente != null) {
+            return cliente.getSenha();
+        } else {
+            return agencia.getSenha();
+        }
     }
 
     @Override
     public String getUsername() {
-        return cliente.getEmail();
+        if(cliente != null) {
+            return cliente.getEmail();
+        } else {
+            return agencia.getEmail();
+        }
     }
 
     @Override
