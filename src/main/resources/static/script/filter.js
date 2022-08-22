@@ -4,7 +4,7 @@ function filtro(column, filterName){
     filter = input.value.toUpperCase();
     table = document.getElementById("tabela");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 2; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;
@@ -40,7 +40,7 @@ function filtroData(column) {
 
     table = document.getElementById("tabela");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 2; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;
@@ -65,7 +65,7 @@ function filtroVigente(column) {
 
     table = document.getElementById("tabela");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 2; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;
@@ -87,7 +87,7 @@ function filtroNumero(column, filterName){
     filter = input.value;
     table = document.getElementById("tabela");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 2; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;
@@ -115,7 +115,7 @@ function changeAtivo(column){
     var table, tr, td, i, txtValue;
     table = document.getElementById("tabela");
     tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
+    for (i = 2; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;

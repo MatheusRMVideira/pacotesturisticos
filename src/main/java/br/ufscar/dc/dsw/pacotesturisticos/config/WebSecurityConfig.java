@@ -41,10 +41,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         .antMatchers("/error", "/login/**", "/js/**").permitAll()
-        .antMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-        .antMatchers("/pacote/listar", "/compras/**").hasRole("USER")
+        .antMatchers("/css/**", "/image/**", "/webjars/**", "/pacote/listar").permitAll()
+        .antMatchers("/compras/**").hasRole("USER")
         .antMatchers("/pacote/**").hasRole("AGENCIA")
-        .antMatchers("/agencia/**", "/cliente/**", "/pacote/listar", "/compras/**").hasRole("ADMIN")
+        .antMatchers("/agencia/**", "/cliente/**", "/compras/**").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login").permitAll()

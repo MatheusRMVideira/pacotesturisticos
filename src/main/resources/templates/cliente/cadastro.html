@@ -34,7 +34,7 @@
 						<input type="text" class="form-control" id="email"
 							th:placeholder="#{cliente.email.label}"
 							autofocus="autofocus" th:field="*{email}"
-							th:classappend="${#fields.hasErrors('email')} ? is-invalid" />
+							th:classappend="${#fields.hasErrors('email')} ? is-invalid" th:readonly="${cliente.id != null}"/>
 
 						<div class="invalid-feedback">
 							<span th:errors="*{email}"></span>
@@ -70,7 +70,7 @@
 						<input type="text" class="form-control" id="cpf" th:field="*{cpf}"
 							autofocus="autofocus" placeholder="___.___.___-__"
 							th:classappend="${#fields.hasErrors('cpf')} ? is-invalid" 
-							data-mask="000.000.000-00" data-mask-reverse="true" />
+							data-mask="000.000.000-00" data-mask-reverse="true" th:readonly="${cliente.id != null}"/>
 							
 						<div class="invalid-feedback">
 							<span th:errors="*{cpf}"></span>

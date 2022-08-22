@@ -24,6 +24,7 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
     public boolean isValid(String email, ConstraintValidatorContext context) {
         if (agenciaDAO != null) {
             Agencia agencia = agenciaDAO.findByEmail(email);
+
             return agencia == null;
         }
         if (clienteDAO != null) {

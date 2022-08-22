@@ -20,6 +20,7 @@ public class CompraService implements ICompraService{
         compraDAO.save(compra);
     }
 
+    
     public void deleteById(long id) {
         compraDAO.deleteById(id);
     }

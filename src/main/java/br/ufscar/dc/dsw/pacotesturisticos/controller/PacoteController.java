@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Imagem;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IImagemService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
 
 import br.ufscar.dc.dsw.pacotesturisticos.security.UsuarioDetails;
 
@@ -32,6 +34,8 @@ public class PacoteController {
     private IPacoteService pacoteService;
     @Autowired
     private IImagemService imagemService;
+    @Autowired
+    private IAgenciaService agenciaService;
 
     @GetMapping("/cadastrar")
     public String cadastro(Pacote pacote, ModelMap model) {
@@ -40,15 +44,19 @@ public class PacoteController {
 
     @GetMapping("/listar")
     public String listar(ModelMap model){
+        model.addAttribute("agencias", agenciaService.findAll());
         model.addAttribute("pacotes", pacoteService.findAll());
         return "pacote/lista";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@Valid Pacote pacote, BindingResult result, RedirectAttributes attributes) {
+    public String salvar(@Valid Pacote pacote, BindingResult result, RedirectAttributes attributes, Authentication authentication) {
         if (result.hasErrors()) {
             return "pacote/cadastro";
         }
+        UsuarioDetails userDetails = (UsuarioDetails) authentication.getPrincipal();
+        Agencia agencia = userDetails.getAgencia();
+        pacote.setAgencia(agencia);
         pacoteService.save(pacote);
         attributes.addFlashAttribute("sucess", "Pacote salvo com sucesso!");
         return "redirect:/pacote/cadastrar";
@@ -62,10 +70,13 @@ public class PacoteController {
     }
 
     @PostMapping("/editar")
-    public String editar(@Valid Pacote pacote, BindingResult result, RedirectAttributes attributes) {
+    public String editar(@Valid Pacote pacote, BindingResult result, RedirectAttributes attributes, Authentication authentication) {
         if (result.hasErrors()) {
             return "pacote/cadastro";
         }
+        UsuarioDetails userDetails = (UsuarioDetails) authentication.getPrincipal();
+        Agencia agencia = userDetails.getAgencia();
+        pacote.setAgencia(agencia);
         pacoteService.save(pacote);
         attributes.addFlashAttribute("sucess", "Pacote editado com sucesso!");
         return "redirect:/pacote/cadastrar";

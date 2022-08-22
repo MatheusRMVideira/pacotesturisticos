@@ -26,7 +26,7 @@
 			<div th:replace="fragments/alert"></div>
 
 			<div class="table-responsive">
-				<table class="table table-striped table-hover table-sm">
+				<table class="table table-striped table-hover table-sm" id="tabela">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -41,6 +41,19 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr><form>
+							<td><input type="number" class="filtro" id="id" onkeyup="filtro(0,'id')"></td>
+							<td><input type="text" class="filtro" id="email" onkeyup="filtro(1,'email')"></td>
+							<td><input type="text" class="filtro" id="nome" onkeyup="filtro(2,'nome')"></td>
+							<td><input type="text" class="filtro" id="cpf" onkeyup="filtro(3,'cpf')"></td>
+							<td><input type="text" class="filtro" id="telefone" onkeyup="filtro(4,'telefone')"></td>
+							<td><input type="text" class="filtro" id="sexo" onkeyup="filtro(5, 'sexo')"></td>
+							<td><input type="date" class="filtro" id="dataInicio" onchange="filtroData(6)">
+							<input type="date" class="filtro" id="dataInicio" onchange="filtroData(6)"></td>
+							<td><input type="text" class="filtro" id="tipo" onkeyup="filtro(7, 'tipo')"></td>
+							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+							
+						</form></tr>
 						<tr th:each="cliente : ${clientes}">
 							<td th:text="${cliente.id}"></td>
 							<td th:text="${cliente.email}"></td>
