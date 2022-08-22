@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IClienteService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
 
 @Controller
 @RequestMapping("/cliente")
@@ -20,6 +22,9 @@ public class ClienteController {
     
     @Autowired
     private IClienteService clienteService;
+
+    @Autowired
+    private ICompraService compraService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -65,13 +70,11 @@ public class ClienteController {
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, ModelMap model) {
-        if(clienteService.clienteTemCompras(id)){
-            model.addAttribute("error", "Cliente não pode ser excluído pois tem compras.");
-            return "redirect:/cliente/listar";
-        } else {
+            for(Compra compra : compraService.findByCliente(clienteService.findById(id))) {
+                compraService.deleteById(compra.getId());
+            }
             clienteService.deleteById(id);
             model.addAttribute("sucess", "Cliente excluído com sucesso!");
-        }
         return "redirect:/cliente/listar";
     }
 }

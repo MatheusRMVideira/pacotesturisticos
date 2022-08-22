@@ -1,5 +1,7 @@
 package br.ufscar.dc.dsw.pacotesturisticos.controller;
 
+import java.time.LocalDate;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,16 +36,18 @@ public class CompraController {
     private IAgenciaService agenciaService;
 
     @GetMapping("/detalhes/{id}")
-    public String detalhes(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("pacotes", pacoteService.findById(id));
-        return "compra/cadastro";
+    public String detalhes(@PathVariable("id") Long id, Compra compra,ModelMap model) {
+        compra.setPacote(pacoteService.findById(id));
+        compra.setCliente(getUsuario());
+        return "compra/detalhes";
     }
 
     @PostMapping("/insere")
-    public String insere(@Valid Compra compra, BindingResult result, RedirectAttributes attributes) {
+    public String insere(Compra compra, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
-            return "compra/cadastro";
+            return "compra/detalhes";
         }
+        compra.setAtivo(true);
         compraService.save(compra);
         attributes.addFlashAttribute("sucess", "Compra realizada com sucesso!");
         return "redirect:/compra/listar";
@@ -64,6 +68,24 @@ public class CompraController {
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, ModelMap model) {
         compraService.deleteById(id);
+        return "redirect:/compra/listar";
+    }
+
+    @GetMapping("/cancelar/{id}")
+    public String cancelar(@PathVariable("id") Long id, ModelMap model, RedirectAttributes attributes) {
+        Compra compra = compraService.findById(id);
+        LocalDate dataPartida = LocalDate.parse(compra.getPacote().getPartida());
+        if(dataPartida.isBefore(LocalDate.now())){
+            attributes.addFlashAttribute("error", "Não é possível cancelar uma viagem que já aconteceu");
+            return "redirect:/compra/listar";
+        }
+        dataPartida = dataPartida.minusDays(5);
+        if(dataPartida.isBefore(LocalDate.now())){
+            attributes.addFlashAttribute("error", "Só é possível cancelar uma viagem com 5 dias de antecedência");
+            return "redirect:/compra/listar";
+        }
+        compra.setAtivo(false);
+        compraService.save(compra);
         return "redirect:/compra/listar";
     }
 

@@ -119,7 +119,7 @@ function changeAtivo(column){
         td = tr[i].getElementsByTagName("td")[column];
         if (td) {
             txtValue = td.textContent || td.innerText;
-            if (txtValue == "Cancelado") {
+            if (txtValue == "falso") {
                 tr[i].addClass("cancelado");
             }
         }

@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
 
 @Controller
 @RequestMapping("/agencia")
@@ -20,6 +24,12 @@ public class AgenciaController {
     
     @Autowired
     private IAgenciaService agenciaService;
+
+    @Autowired
+    private IPacoteService pacoteService;
+
+    @Autowired
+    private ICompraService compraService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -63,13 +73,15 @@ public class AgenciaController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, ModelMap model) {
-        if(agenciaService.agenciaTemPacotes(id)){
-            model.addAttribute("fail", "Agencia não pode ser excluída pois possui pacotes associados!");
-        } else {
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attributes) {
+            for (Pacote pacote : pacoteService.findByAgencia(agenciaService.findById(id))) {
+                for(Compra compra : compraService.findByPacote(pacote)) {
+                    compraService.deleteById(compra.getId());
+                }
+                pacoteService.deleteById(pacote.getId());
+            }
             agenciaService.deleteById(id);
-            model.addAttribute("mensagem", "Agencia excluida com sucesso!");
-        }
+            attributes.addFlashAttribute("mensagem", "Agencia excluida com sucesso!");
         return "redirect:/agencia/listar";
     }
 

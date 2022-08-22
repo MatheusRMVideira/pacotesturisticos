@@ -1,84 +1,122 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
 <head>
+<meta charset="UTF-8" />
 </head>
 <body>
+
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active"><i class="oi oi-caret-right"></i>
-						<span th:text="#{compra.cadastrar.label}"></span></li>
+						<span th:text="#{pacote.cadastrar.label}"></span></li>
 				</ul>
-				<a class="btn btn-primary btn-md" th:href="@{/compra/listar}"
-					role="button"> <span class="oi oi-spreadsheet" title="Listar"
-					aria-hidden="true"></span> <span th:text="#{compra.listar.label}"></span>
-				</a>
 			</div>
+			<a class="btn btn-primary btn-md" th:href="@{/pacote/listar}"
+				role="button"> <span class="oi oi-spreadsheet" title="Cadastro"
+				aria-hidden="true"></span> <span th:text="#{pacote.listar.label}"></span>
+			</a>
 		</nav>
 
 		<div class="container" id="cadastro">
 
 			<div th:replace="fragments/alert"></div>
 
-			<form th:action="@{/compra/insere}" th:object="${compra}"
-				method="POST">
-
-				<div th:replace="fragments/validacao :: validacao"></div>
+			<form
+				th:action="${pacote.id == null} ? @{/pacote/salvar} : @{/pacote/editar}"
+				th:object="${pacote}" method="POST">
 
 				<div class="form-row">
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.cidade.label}" for="cidade"></label> 
+						<input type="text" class="form-control" id="cidade" placeholder="#{pacode.cidade.label}"
+							autofocus="autofocus" th:field="*{cidade}"
+							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
 						
-						<table class="table table-striped table-hover table-sm">
-							<thead>
-								<tr>
-									<th class="bg-warning">#</th>
-									<th class="bg-warning" th:text="#{pacote.cidade.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.estado.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.pais.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.partida.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.duracao.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.valor.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.descricao.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.cnpj.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.imagens.label}"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td th:text="${pacote.cidade}"></td>
-									<td th:text="${pacote.estado}"></td>
-									<td th:text="${pacote.pais}"></td>
-									<td th:text="${pacote.partida}"></td>
-									<td th:text="${pacote.duracao}"></td>
-									<td th:text="${pacote.valor}"></td>
-									<td th:text="${pacote.descricao}"></td>
-									<td th:text="${pacote.cnpj}"></td>
-									<td>
-										<img th:each="imagem : ${imagens}" th:src="${imagem.link}" style="width:10px; height:10px;">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="10">
-										<input type="hidden" name="pacote" value="${pacote.id}">
-										<label for="valor" th:text="#{compra.valor.label}"></label>
-										<input type="number" name="valor" value="${pacote.valor}" class="form-control" placeholder="${pacote.valor}">
-										<input type="submit" class="btn btn-primary btn-md" value="${compra.cadastrar.label}">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-
 						<div class="invalid-feedback">
-							<span th:errors="*{livro}"></span>
+							<span th:errors="*{cidade}"></span>
 						</div>
 					</div>
-				</div>
-				
-				<input type="hidden" th:field="*{usuario}" id="usuario">
-				<input type="hidden" th:field="*{data}" id="data">
 
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.estado.label}" for="estado"></label> 
+						<input type="text" class="form-control" id="estado" placeholder="#{pacode.estado.label}"
+							autofocus="autofocus" th:field="*{estado}"
+							th:classappend="${#fields.hasErrors('estado')} ? is-invalid" />
+						
+						<div class="invalid-feedback">
+							<span th:errors="*{estado}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.pais.label}" for="pais"></label> 
+						<input type="text" class="form-control" id="pais" placeholder="País"
+							autofocus="autofocus" th:field="*{pais}"
+							th:classappend="${#fields.hasErrors('pais')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{pais}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.dataPartida.label}" for="partida"></label> 
+						<input type="date" class="form-control" id="partida" placeholder="Data de Partida"
+							autofocus="autofocus" th:field="*{partida}"
+							th:classappend="${#fields.hasErrors('partida')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{partida}"></span>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.duracao.label}" for="duracao"></label> 
+						<input type="number" class="form-control" id="duracao" placeholder="Duração"
+							autofocus="autofocus" th:field="*{duracao}"
+							th:classappend="${#fields.hasErrors('duracao')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{duracao}"></span>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.preco.label}" for="preco"></label> 
+						<input type="number" class="form-control" id="preco" placeholder="Preco"
+							autofocus="autofocus" th:field="*{preco}"
+							th:classappend="${#fields.hasErrors('preco')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{preco}"></span>
+						</div>
+					</div>
+					<div th:each="i : ${#numbers.sequence(0,9)}">
+						<label th:text="#{pacote.imagens.label}" for="imagem"></label>
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control-file" id="*{imagens.id}" placeholder="Imagem"
+								th:field="*{imagens[i].link}" th:classappend="${#fields.hasErrors('imagens[i]')} ? is-invalid"/>
+
+							<div class="invalid-feedback">
+								<span th:errors="*{imagens[i]}"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.descricao.label}" for="descricao"></label> 
+						<input type="text" class="form-control" id="descricao" placeholder="Descrição"
+							autofocus="autofocus" th:field="*{descricao}"
+							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{descricao}"></span>
+						</div>
+					</div>
+
+				<input type="hidden" id="id" th:field="*{id}" />
 				<button type="submit" th:text="#{button.salvar.label}"
 					class="btn btn-primary btn-sm"></button>
 			</form>

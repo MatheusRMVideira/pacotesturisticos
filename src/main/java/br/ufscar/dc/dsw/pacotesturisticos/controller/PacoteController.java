@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.pacotesturisticos.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -20,9 +21,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Imagem;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IImagemService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
 
 import br.ufscar.dc.dsw.pacotesturisticos.security.UsuarioDetails;
 
@@ -36,9 +39,19 @@ public class PacoteController {
     private IImagemService imagemService;
     @Autowired
     private IAgenciaService agenciaService;
+    @Autowired
+    private ICompraService compraService;
 
     @GetMapping("/cadastrar")
     public String cadastro(Pacote pacote, ModelMap model) {
+        List<Imagem> imagens = new ArrayList<Imagem>();
+        for(int i = 0; i < 10; i++){
+            Imagem imagem = new Imagem();
+            imagem.setLink("");
+            imagem.setPacote(pacote);
+            imagens.add(imagem);
+        }
+        pacote.setImagens(imagens);
         return "pacote/cadastro";
     }
 
@@ -84,6 +97,9 @@ public class PacoteController {
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, ModelMap model) {
+        for(Compra compra : compraService.findByPacote(pacoteService.findById(id))){
+            compraService.deleteById(compra.getId());
+        }
         for(Imagem imagem : imagemService.findByPacote(id)){
             imagemService.deleteById(imagem.getId());
         }

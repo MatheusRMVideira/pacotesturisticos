@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.ufscar.dc.dsw.pacotesturisticos.dao.ICompraDAO;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
 
 @Service
@@ -31,10 +32,14 @@ public class CompraService implements ICompraService{
     }
 
     @Transactional(readOnly = true)
-    public Compra findByCliente(Cliente cliente) {
+    public List<Compra> findByCliente(Cliente cliente) {
         return compraDAO.findByCliente(cliente);
     }
 
+    @Transactional(readOnly = true)
+    public List<Compra> findByPacote(Pacote pacote) {
+        return compraDAO.findByPacote(pacote);
+    }
 
     @Transactional(readOnly = true)
     public List<Compra> findAll() {

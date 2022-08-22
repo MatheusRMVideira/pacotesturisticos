@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 </head>
-<body>
+<body onload="changeAtivo(12)">
 	<section class="layout-content" layout:fragment="corpo">
 
 		<nav class="navbar navbar-expand-md bg-light">
@@ -31,7 +31,7 @@
 							<th class="bg-warning" th:text="#{pacote.pais.label}"></th>
 							<th class="bg-warning" th:text="#{pacote.partida.label}"></th>
 							<th class="bg-warning" th:text="#{pacote.duracao.label}"></th>
-							<th class="bg-warning" th:text="#{pacote.valor.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.preco.label}"></th>
 							<th class="bg-warning" th:text="#{compra.valor.label}"></th>
 							<th class="bg-warning" th:text="#{pacote.descricao.label}"></th>
 							<th class="bg-warning" th:text="#{pacote.cnpj.label}"></th>
@@ -59,14 +59,14 @@
 							<td><input type="button" value="Data Vigente" onclick="filtroVigente(4)"></td>
 							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
 						</form></tr>
-						<tr th:each="compra : ${compras}">
+						<tr th:each="compra : ${compras}" th:classappend="${compra.ativo == 'false'} ? cancelado">
 							<td th:text="${compra.id}"></td>
 							<td th:text="${compra.pacote.cidade}"></td>
 							<td th:text="${compra.pacote.estado}"></td>
 							<td th:text="${compra.pacote.pais}"></td>
 							<td th:text="${compra.pacote.partida}"></td>
 							<td th:text="${compra.pacote.duracao}"></td>
-							<td th:text="${compra.pacote.valor}"></td>
+							<td th:text="${compra.pacote.preco}"></td>
 							<td th:text="${compra.valor}"></td>
 							<td th:text="${compra.pacote.descricao}"></td>
 							<td th:text="${compra.pacote.agencia.nome}"></td>
@@ -76,10 +76,10 @@
 							<td th:text="${compra.ativo}"></td>
 							<td>
 								<button
-									th:id="${'btn_compra/excluir/' + compra.id}"
+									th:id="${'btn_compra/cancelar/' + compra.id}"
 									type="button" class="btn btn-danger btn-sm"
 									data-toggle="modal" data-target="#myModal">
-									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
+									<span class="oi oi-circle-x" th:title="#{link.cancelar.label}" aria-hidden="true"></span>
 								</button>
 							</td>
 						</tr>
