@@ -31,7 +31,7 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.cidade.label}" for="cidade"></label> 
-						<input type="text" class="form-control" id="cidade" placeholder="#{pacode.cidade.label}"
+						<input type="text" class="form-control" id="cidade" placeholder="Cidade"
 							autofocus="autofocus" th:field="*{cidade}"
 							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
 						
@@ -42,7 +42,7 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.estado.label}" for="estado"></label> 
-						<input type="text" class="form-control" id="estado" placeholder="#{pacode.estado.label}"
+						<input type="text" class="form-control" id="estado" placeholder="Estado"
 							autofocus="autofocus" th:field="*{estado}"
 							th:classappend="${#fields.hasErrors('estado')} ? is-invalid" />
 						
@@ -97,7 +97,7 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.descricao.label}" for="descricao"></label> 
-						<input type="number" class="form-control" id="descricao" placeholder="Descrição"
+						<input type="text" class="form-control" id="descricao" placeholder="Descrição"
 							autofocus="autofocus" th:field="*{descricao}"
 							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
 
