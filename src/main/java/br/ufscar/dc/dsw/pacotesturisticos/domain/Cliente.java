@@ -58,7 +58,8 @@ public class Cliente extends AbstractEntity<Long>{
     private String dataNascimento;
 
     @NotBlank(message = "{NotBlank.cliente.tipo}")
-    @Column(nullable = false)
+    @Size(max = 20, message = "{Size.cliente.tipo}")
+    @Column(nullable = false, length = 20)   
     private String tipo;
 
     @OneToMany(mappedBy = "cliente")

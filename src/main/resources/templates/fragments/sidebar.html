@@ -17,10 +17,10 @@
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
 					th:text="#{sidebar.titulo.compra}"></span></li>
-				<li class="nav-item"><a class="nav-link"
+				<!-- <li class="nav-item"><a class="nav-link"
 					th:href="@{/compra/cadastrar}"> <i class="oi oi-plus"></i> <span
 						th:text="#{sidebar.link.cadastrar}"></span>
-				</a></li>
+				</a></li> -->
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{/compra/listar}"> <i class="oi oi-spreadsheet"></i>
 						<span th:text="#{sidebar.link.listar}"></span>
@@ -58,7 +58,7 @@
 			</ul>
 		</div>
 
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
+<!-- 		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
 					th:text="#{sidebar.titulo.pacote}"></span></li>
@@ -69,7 +69,7 @@
 				</a></li>
 			</ul>
 		</div>
-
+ -->
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"
