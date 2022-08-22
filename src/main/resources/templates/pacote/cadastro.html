@@ -53,22 +53,21 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.pais.label}" for="pais"></label> 
-						<input type="text" class="form-control" id="pais" placeholder="#{pacode.pais.label}"
+						<input type="text" class="form-control" id="pais" placeholder="País"
 							autofocus="autofocus" th:field="*{pais}"
 							th:classappend="${#fields.hasErrors('pais')} ? is-invalid" />
-						
+
 						<div class="invalid-feedback">
 							<span th:errors="*{pais}"></span>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
-						<label th:text="#{pacote.partida.label}" for="partida"></label> 
-						<input type="date" class="form-control" id="partida"
-							th:placeholder="#{cliente.partida.label}" autofocus="autofocus"
-							th:field="*{partida}"
-							th:classappend="${#fields.hasErrors('partida')} ? is-invalid"/>
-							
+						<label th:text="#{pacote.dataPartida.label}" for="partida"></label> 
+						<input type="text" class="form-control" id="partida" placeholder="Data de Partida"
+							autofocus="autofocus" th:field="*{partida}"
+							th:classappend="${#fields.hasErrors('partida')} ? is-invalid" />
+
 						<div class="invalid-feedback">
 							<span th:errors="*{partida}"></span>
 						</div>
@@ -76,63 +75,36 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.duracao.label}" for="duracao"></label> 
-						<input type="date" class="form-control" id="partida"
-							th:placeholder="#{cliente.partida.label}" autofocus="autofocus"
-							th:field="*{partida}"
-							th:classappend="${#fields.hasErrors('partida')} ? is-invalid"/>
-							
+						<input type="text" class="form-control" id="duracao" placeholder="Duração"
+							autofocus="autofocus" th:field="*{duracao}"
+							th:classappend="${#fields.hasErrors('duracao')} ? is-invalid" />
+
 						<div class="invalid-feedback">
-							<span th:errors="*{partida}"></span>
+							<span th:errors="*{duracao}"></span>
+						</div>
+					</div>
+					<div th:each="imagem : ${imagens}">
+						<label th:text="#{pacote.imagem.label}" for="imagem"></label>
+						<div class="form-group col-md-6">
+							<input type="text" class="form-control-file" id="imagem" placeholder="Imagem"
+								th:field="*{link}" th:classappend="${#fields.hasErrors('imagem')} ? is-invalid"/>
+
+							<div class="invalid-feedback">
+								<span th:errors="*{link}"></span>
+							</div>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
-						<label th:text="#{livro.autor.label}" for="nome"></label> 
-						<input type="text" class="form-control" id="nome" placeholder="Autor"
-							autofocus="autofocus" th:field="*{autor}"
-							th:classappend="${#fields.hasErrors('autor')} ? is-invalid" />
-						
-						<div class="invalid-feedback">
-							<span th:errors="*{autor}"></span>
-						</div>
-					</div>
-
-					<div class="form-group col-md-6">
-						<label th:text="#{livro.editora.label}" for="editora"></label> 
-						<select id="editora" class="form-control" th:field="*{editora}"
-							th:classappend="${#fields.hasErrors('editora')} ? is-invalid">
-							<option value="">Selecione</option>
-							<option th:each="editora : ${editoras}" th:value="${editora.id}"
-								th:text="${editora.nome}"></option>
-						</select>
+						<label th:text="#{pacote.descricao.label}" for="descricao"></label> 
+						<input type="number" class="form-control" id="descricao" placeholder="Descrição"
+							autofocus="autofocus" th:field="*{descricao}"
+							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{editora}"></span>
+							<span th:errors="*{descricao}"></span>
 						</div>
 					</div>
-
-					<div class="form-group col-md-6">
-						<label th:text="#{livro.ano.label}" for="ano"></label> 
-						<input type="number" class="form-control" id="nome" placeholder="Ano"
-							autofocus="autofocus" th:field="*{ano}"
-							th:classappend="${#fields.hasErrors('ano')} ? is-invalid" />
-						
-						<div class="invalid-feedback">
-							<span th:errors="*{ano}"></span>
-						</div>
-					</div>
-
-					<div class="form-group col-md-6">
-						<label th:text="#{livro.preco.label}" for="preco"></label> 
-						<input type="text" class="form-control" id="preco" placeholder="Preço"
-							data-mask="000000,00" data-mask-reverse="true" th:field="*{preco}" 
-							th:classappend="${#fields.hasErrors('preco')} ? is-invalid" />
-						
-						<div class="invalid-feedback">
-							<span th:errors="*{preco}"></span>
-						</div>
-					</div>
-				</div>
 
 				<input type="hidden" id="id" th:field="*{id}" />
 				<button type="submit" th:text="#{button.salvar.label}"

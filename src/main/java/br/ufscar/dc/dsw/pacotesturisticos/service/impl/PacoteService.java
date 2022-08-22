@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import br.ufscar.dc.dsw.pacotesturisticos.dao.IPacoteDAO;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
+
 
 @Service
 @Transactional(readOnly = false)
@@ -29,7 +31,7 @@ public class PacoteService implements IPacoteService{
     }
 
     @Transactional(readOnly = true)
-    public Pacote findByAgencia(long agencia) {
+    public Pacote findByAgencia(Agencia agencia) {
         return pacoteDAO.findByAgencia(agencia);
     }
 

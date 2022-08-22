@@ -24,7 +24,7 @@ public class ClienteController {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @GetMapping("/cadastro")
+    @GetMapping("/cadastrar")
 
     public String cadastro(Cliente cliente) {
         return "cliente/cadastro";
@@ -44,7 +44,7 @@ public class ClienteController {
         cliente.setSenha(encoder.encode(cliente.getSenha()));
         clienteService.save(cliente);
         attributes.addFlashAttribute("sucess", "Cliente salvo com sucesso!");
-        return "redirect:/cliente/cadastro";
+        return "redirect:/cliente/cadastrar";
     }
 
     @GetMapping("/editar/{id}")
@@ -60,18 +60,18 @@ public class ClienteController {
         }
         clienteService.save(cliente);
         attributes.addFlashAttribute("sucess", "Cliente editado com sucesso!");
-        return "redirect:/cliente/cadastro";
+        return "redirect:/cliente/cadastrar";
     }
 
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable("id") Long id, ModelMap model) {
         if(clienteService.clienteTemCompras(id)){
             model.addAttribute("error", "Cliente não pode ser excluído pois tem compras.");
-            return "redirect:/cliente/lista";
+            return "redirect:/cliente/listar";
         } else {
             clienteService.deleteById(id);
             model.addAttribute("sucess", "Cliente excluído com sucesso!");
         }
-        return "redirect:/cliente/lista";
+        return "redirect:/cliente/listar";
     }
 }

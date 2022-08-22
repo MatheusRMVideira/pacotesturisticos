@@ -21,22 +21,20 @@ import org.springframework.format.annotation.NumberFormat.Style;
 @Table(name = "Imagem")
 public class Imagem extends AbstractEntity<Long>{
     
-    @Lob
-    @Basic(fetch = javax.persistence.FetchType.LAZY)
-    @NotNull(message = "{NotNull.imagem.byteArray}")
-    @Column(nullable = false)
-    private byte[] byteArray;
+    @NotBlank(message = "{NotBlank.imagem.link}")
+    @Column(nullable = true)
+    private String link;
 
     @ManyToOne
     @JoinColumn(name = "pacote_id")
     private Pacote pacote;
 
-    public byte[] getByteArray() {
-        return byteArray;
+    public String getLink() {
+        return link;
     }
 
-    public void setByteArray(byte[] byteArray) {
-        this.byteArray = byteArray;
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Pacote getPacote() {

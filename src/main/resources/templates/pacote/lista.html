@@ -52,7 +52,9 @@
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
 							<td th:text="${pacote.agencia.nome}"></td>
 							<td th:text="${pacote.descricao}"></td>
-							<td th:src="${pacote.imagem.link}" style="width:10px; height:10px;"></td> <!-- TO DO: loop para imagens -->
+							<td th:each="imagem : ${imagens}">
+								<img th:src="${imagem.link}" style="width:10px; height:10px;"
+							</td> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 
