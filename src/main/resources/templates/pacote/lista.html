@@ -37,7 +37,7 @@
 							<th th:text="#{pacote.preco.label}"></th>							
 							<th th:text="#{pacote.agencia.label}"></th>
 							<th th:text="#{pacote.descricao.label}"></th>
-							<th th:text="#{pacote.imagem.label}"></th>
+						<!-- <th th:text="#{pacote.imagem.label}"></th> -->
 							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
@@ -50,11 +50,11 @@
 							<td th:text="${pacote.partida}"></td>
 							<td th:text="${pacote.duracao}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
-							<td th:text="${pacote.agencia.nome}"></td>
+							<!-- <td th:text="${pacote.cnpj}"></td> -->
 							<td th:text="${pacote.descricao}"></td>
-							<td th:each="imagem : ${imagens}">
-								<img th:src="${imagem.link}" style="width:10px; height:10px;"
-							</td> <!-- TO DO: loop para imagens -->
+							<!-- <td th:each="imagem : ${imagens}">
+								<img th:src="${imagem.link}" style="width:10px; height:10px;">
+							</td>--> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 
