@@ -30,23 +30,36 @@
 					<thead>
 						<tr>
 							<th class="bg-warning">#</th>
-							<th class="bg-warning" th:text="#{compra.data.label}"></th>
-							<th class="bg-warning" th:text="#{livro.titulo.label}"></th>
-							<th class="bg-warning" th:text="#{livro.autor.label}"></th>
-							<th class="bg-warning" th:text="#{livro.editora.label}"></th>
-							<th class="bg-warning" th:text="#{livro.ano.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.cidade.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.estado.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.pais.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.partida.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.duracao.label}"></th>
 							<th class="bg-warning" th:text="#{compra.valor.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.agencia.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.descricao.label}"></th>
+							<th class="bg-warning" th:text="#{pacote.imagem.label}"></th>
+							<th class="bg-warning" th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="compra : ${compras}">
 							<td th:text="${compra.id}"></td>
-							<td th:text="${compra.data}"></td>
-							<td th:text="${compra.livro.titulo}"></td>
-							<td th:text="${compra.livro.autor}"></td>
-							<td th:text="${compra.livro.editora.nome}"></td>
-							<td th:text="${compra.livro.ano}"></td>
+							<td th:text="${compra.pacote.cidade}"></td>
+							<td th:text="${compra.pacote.estado}"></td>
+							<td th:text="${compra.pacote.pais}"></td>
+							<td th:text="${compra.pacote.partida}"></td>
+							<td th:text="${compra.pacote.duracao}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(compra.valor,2,2,'COMMA')}|"></td>
+							<td th:text="${compra.pacote.agencia.nome}"></td>
+							<td th:text="${compra.pacote.descricao}"></td>
+							<td th:src="${compra.pacote.imagem}"></td>
+							<td colspan="1">
+								<button th:id="${#strings.concat('btn_compras/excluir/',compra.id)}" 
+									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
+								</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
