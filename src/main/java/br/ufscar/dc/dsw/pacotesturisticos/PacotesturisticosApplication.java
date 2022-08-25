@@ -15,6 +15,8 @@ import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Imagem;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -57,19 +59,20 @@ public class PacotesturisticosApplication {
 				 * Imagem m2 = new Imagem(); m2.setLink(
 				 * "https://saocarlosemrede.com.br/indice-de-isolamento-social-dispara-em-sao-carlos/"
 				 * ); imagemDAO.save(m2);
-				 */
-				  
-				/*
-				 * List<Imagem> imagens = null; imagens.add(m1); imagens.add(m2);
-				 */
-				 
-				/*
+				 * 
+				 * 
+				 * 
+				 * // List<Imagem> imagens = null; // imagens.add(m1); // imagens.add(m2);
+				 * 
+				 * 
+				 * 
 				 * Pacote p1 = new Pacote(); p1.setAgencia(a1); p1.setCidade("São Carlos");
 				 * p1.setDescricao("Capital da Tecnologia"); p1.setDuracao(10);
 				 * p1.setEstado("São Paulo"); p1.setPais("Brasil"); p1.setPartida("2022-10-09");
-				 * //p1.setPreco("1050.00"); p1.setImagens(imagens); pacoteDAO.save(p1);
+				 * p1.setPreco(BigDecimal.valueOf(1050.00)); //p1.setImagens(imagens);
+				 * pacoteDAO.save(p1);
+				 * 
 				 */
-				  
 				  //u2.setEnabled(true); 
 				 
 		  }; 
