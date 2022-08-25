@@ -30,11 +30,11 @@ public class CompraController {
 
     @GetMapping("/detalhes/{id}")
     public String detalhes(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("pacotes", pacoteService.findById(id));
+        model.addAttribute("pacote", pacoteService.findById(id));
         return "compra/detalhes";
     }
 
-    @PostMapping("/insere")
+    @PostMapping("/inserir")
     public String insere(@Valid Compra compra, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {
             return "compra/detalhes";

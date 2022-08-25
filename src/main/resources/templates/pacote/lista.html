@@ -27,7 +27,7 @@
 			<div class="table-responsive">
 				<table class="table table-striped table-hover table-sm">
 					<thead>
-						<tr>
+						<tr >
 							<th>#</th>
 							<th th:text="#{pacote.cidade.label}"></th>
 							<th th:text="#{pacote.estado.label}"></th>
@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody>						
-						<tr th:each="pacote : ${pacotes}">
+						<tr th:each="pacote:${pacotes}">
 							<td th:text="${pacote.id}"></td>
 							<td th:text="${pacote.cidade}"></td>
 							<td th:text="${pacote.estado}"></td>
@@ -50,20 +50,28 @@
 							<td th:text="${pacote.partida}"></td>
 							<td th:text="${pacote.duracao}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
-							<!-- <td th:text="${pacote.cnpj}"></td> -->
+							<td th:text="${pacote.agencia.cnpj}"></td>
 							<td th:text="${pacote.descricao}"></td>
 							<!-- <td th:each="imagem : ${imagens}">
 								<img th:src="${imagem.link}" style="width:10px; height:10px;">
 							</td>--> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
-								<a class="btn btn-info btn-sm"
+								<a sec:authorize="hasRole('ROLE_AGENCIA')" class="btn btn-info btn-sm"
 									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 
 									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"></span>
 								</a>
-								<button th:id="${#strings.concat('btn_pacotes/excluir/',pacote.id)}" 
+								<button sec:authorize="hasRole('ROLE_AGENCIA')" th:id="${#strings.concat('btn_pacotes/excluir/',pacote.id)}" 
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
 									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
 								</button>
+								<!-- <button th:id="${#strings.concat('btn_compra/detalhes/',pacote.id)}" 
+									type="button"  class="btn btn-info btn-sm" data-toggle="tooltip"  data-target="right">
+									<span class="oi oi-dial" th:title="#{link.ver.label}" aria-hidden="true"></span>
+								</button> -->
+							 	<a class="btn btn-info btn-sm"
+									th:href="@{/compra/detalhes/{id} (id=${pacote.id}) }" role="button"> 
+									<span class="oi oi-dial" th:title="#{link.ver.label}" aria-hidden="true"></span>
+								</a>
 							</td>
 						</tr>
 					</tbody>
