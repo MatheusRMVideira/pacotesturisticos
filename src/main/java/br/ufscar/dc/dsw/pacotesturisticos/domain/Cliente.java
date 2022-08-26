@@ -15,6 +15,7 @@ import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueEmail;
 import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueCpf;
+import br.ufscar.dc.dsw.pacotesturisticos.validation.OnUpdate;
 
 @SuppressWarnings("serial")
 @Entity
@@ -22,7 +23,7 @@ import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueCpf;
 public class Cliente extends AbstractEntity<Long>{
     
     @NotBlank(message = "{NotBlank.cliente.email}")
-    @UniqueEmail(message = "{UniqueEmail.cliente.email}")
+    @UniqueEmail(groups= OnUpdate.class, message = "{UniqueEmail.cliente.email}")
     @Size(max = 255, message = "{Size.cliente.email}")
     @Column(nullable = false, length = 255, unique=true)
     private String email;
@@ -39,7 +40,7 @@ public class Cliente extends AbstractEntity<Long>{
 
     @NotBlank(message = "{NotBlank.cliente.cpf}")
     @Size(max = 14, message = "{Size.cliente.cpf}")
-    @UniqueCpf(message = "{UniqueCpf.cliente.cpf}")
+    @UniqueCpf(groups= OnUpdate.class, message = "{UniqueCpf.cliente.cpf}")
     @Column(nullable = false, length = 14, unique = true)
     private String cpf;
 

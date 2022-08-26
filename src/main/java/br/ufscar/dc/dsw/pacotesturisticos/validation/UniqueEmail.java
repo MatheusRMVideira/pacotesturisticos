@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueEmail {
-    String message() default "{UniqueEmail.agencia.email}";
+    String message() default "{UniqueEmail.email}";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

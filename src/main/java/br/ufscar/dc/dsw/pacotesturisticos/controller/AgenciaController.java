@@ -12,7 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IClienteService;
 
 @Controller
 @RequestMapping("/agencia")
@@ -20,6 +26,15 @@ public class AgenciaController {
     
     @Autowired
     private IAgenciaService agenciaService;
+
+    @Autowired
+    private IPacoteService pacoteService;
+
+    @Autowired
+    private ICompraService compraService;
+
+    @Autowired
+    private IClienteService clienteService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -40,6 +55,17 @@ public class AgenciaController {
         if (result.hasErrors()) {
             return "agencia/cadastro";
         }
+        Agencia agencia2 = agenciaService.findByEmail(agencia.getEmail());
+        Cliente cliente2 = clienteService.findByEmail(agencia.getEmail());
+        if (agencia2 != null || cliente2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
+        agencia2 = agenciaService.findByCnpj(agencia.getCnpj());
+        if(agencia2 != null){
+            attributes.addFlashAttribute("fail", "CNPJ já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
         agencia.setSenha(encoder.encode(agencia.getSenha()));
         agenciaService.save(agencia);
         attributes.addFlashAttribute("sucess", "Agencia salva com sucesso!");
@@ -57,19 +83,32 @@ public class AgenciaController {
         if (result.hasErrors()) {
             return "agencia/cadastro";
         }
+        Agencia agencia2 = agenciaService.findByEmail(agencia.getEmail());
+        Cliente cliente2 = clienteService.findByEmail(agencia.getEmail());
+        if ((agencia2 != null && !agencia2.getId().equals(agencia.getId())) || cliente2 != null) {
+            attributes.addFlashAttribute("fail", "E-mail já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
+        agencia2 = agenciaService.findByCnpj(agencia.getCnpj());
+        if(agencia2 != null && !agencia2.getId().equals(agencia.getId())){
+            attributes.addFlashAttribute("fail", "CNPJ já cadastrado!");
+            return "redirect:/agencia/cadastrar";
+        }
         agenciaService.save(agencia);
         attributes.addFlashAttribute("sucess", "Agencia editada com sucesso!");
         return "redirect:/agencia/cadastrar";
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, ModelMap model) {
-        if(agenciaService.agenciaTemPacotes(id)){
-            model.addAttribute("fail", "Agencia não pode ser excluída pois possui pacotes associados!");
-        } else {
+    public String excluir(@PathVariable("id") Long id, RedirectAttributes attributes) {
+            for (Pacote pacote : pacoteService.findByAgencia(agenciaService.findById(id))) {
+                for(Compra compra : compraService.findByPacote(pacote)) {
+                    compraService.deleteById(compra.getId());
+                }
+                pacoteService.deleteById(pacote.getId());
+            }
             agenciaService.deleteById(id);
-            model.addAttribute("mensagem", "Agencia excluida com sucesso!");
-        }
+            attributes.addFlashAttribute("mensagem", "Agencia excluida com sucesso!");
         return "redirect:/agencia/listar";
     }
 

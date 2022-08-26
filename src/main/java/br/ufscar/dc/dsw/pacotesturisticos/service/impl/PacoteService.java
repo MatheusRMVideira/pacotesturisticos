@@ -31,7 +31,7 @@ public class PacoteService implements IPacoteService{
     }
 
     @Transactional(readOnly = true)
-    public Pacote findByAgencia(Agencia agencia) {
+    public List<Pacote> findByAgencia(Agencia agencia) {
         return pacoteDAO.findByAgencia(agencia);
     }
 

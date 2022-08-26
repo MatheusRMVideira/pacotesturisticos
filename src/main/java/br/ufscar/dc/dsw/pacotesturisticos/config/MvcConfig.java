@@ -20,8 +20,8 @@ import br.ufscar.dc.dsw.pacotesturisticos.conversor.BigDecimalConversor;
 public class MvcConfig implements WebMvcConfigurer{
     
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("redirect:/home");
-        registry.addViewController("/home").setViewName("home");
+        registry.addViewController("/").setViewName("redirect:/pacote/listar");
+        registry.addViewController("/home").setViewName("redirect:/pacote/listar");
         registry.addViewController("/login").setViewName("login");
     }
 

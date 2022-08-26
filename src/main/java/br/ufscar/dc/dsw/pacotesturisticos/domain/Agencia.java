@@ -15,6 +15,7 @@ import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueEmail;
 import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueCnpj;
+import br.ufscar.dc.dsw.pacotesturisticos.validation.OnUpdate;
 
 @SuppressWarnings("serial")
 @Entity
@@ -22,7 +23,7 @@ import br.ufscar.dc.dsw.pacotesturisticos.validation.UniqueCnpj;
 public class Agencia extends AbstractEntity<Long>{
 
     @NotBlank(message = "{NotBlank.agencia.email}")
-    @UniqueEmail(message = "{UniqueEmail.agencia.email}")
+    @UniqueEmail(groups= OnUpdate.class, message = "{UniqueEmail.agencia.email}")
     @Size(max = 255, message = "{Size.agencia.email}")
     @Column(nullable = false, length = 255)
     private String email;
@@ -39,7 +40,7 @@ public class Agencia extends AbstractEntity<Long>{
 
     @NotBlank(message = "{NotBlank.agencia.cnpj}")
     @Size(max = 18, message = "{Size.agencia.cnpj}")
-    @UniqueCnpj(message = "{UniqueCnpj.agencia.cnpj}")
+    @UniqueCnpj(groups= OnUpdate.class, message = "{UniqueCnpj.agencia.cnpj}")
     @Column(nullable = false, length = 18)
     private String cnpj;
 

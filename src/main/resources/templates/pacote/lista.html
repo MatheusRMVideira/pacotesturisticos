@@ -14,7 +14,7 @@
 					</li>
 				</ul>
 			</div>
-			<a sec:authorize="hasRole('ROLE_AGENCIA')" class="btn btn-primary btn-md" th:href="@{/pacote/cadastrar}" role="button"> 
+			<a class="btn btn-primary btn-md" th:href="@{/pacote/cadastrar}" role="button"> 
 				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
 				<span th:text="#{pacote.cadastrar.label}"></span>
 			</a>
@@ -25,9 +25,9 @@
 			<div th:replace="fragments/alert"></div>
 
 			<div class="table-responsive">
-				<table class="table table-striped table-hover table-sm">
+				<table class="table table-striped table-hover table-sm" id="tabela">
 					<thead>
-						<tr >
+						<tr>
 							<th>#</th>
 							<th th:text="#{pacote.cidade.label}"></th>
 							<th th:text="#{pacote.estado.label}"></th>
@@ -37,12 +37,28 @@
 							<th th:text="#{pacote.preco.label}"></th>							
 							<th th:text="#{pacote.agencia.label}"></th>
 							<th th:text="#{pacote.descricao.label}"></th>
-						<!-- <th th:text="#{pacote.imagem.label}"></th> -->
+							<th th:text="#{pacote.imagem.label}"></th>
 							<th th:text="#{acao.label}"></th>
 						</tr>
 					</thead>
-					<tbody>						
-						<tr th:each="pacote:${pacotes}">
+					<tbody>
+						<tr><form>
+							<td><input type="number" class="filtro" id="id" onkeyup="filtro(0, 'id')"></td>
+							<td><input type="text" class="filtro" id="cidade" onkeyup="filtro(1, 'cidade')"></td>
+							<td><input type="text" class="filtro" id="estado" onkeyup="filtro(2, 'estado')"></td>
+							<td><input type="text" class="filtro" id="pais" onkeyup="filtro(3, 'pais')"></td>
+							<td><input type="date" class="filtro" id="dataInicio" onchange="filtroData(4)">
+								<input type="date" class="filtro" id="dataFim" onchange="filtroData(4)"></td>
+							<td><input type="number" class="filtro" id="duracao" onkeyup="filtro(5, 'duracao')"></td>
+							<td><input type="number" class="filtro" id="preco" onkeyup="filtro(6, 'preco')"></td>
+							<td><select class="filtroSelect" id="agencia" onchange="filtro(7, 'agencia')">
+									<option value="">Todas</option>
+									<option th:each="agencia : ${agencias}" value="${agencia.nome}" th:text="${agencia.nome}"></option>
+								</select></td>
+							<td><input type="button" value="Data Vigente" onclick="filtroVigente(4)"></td>
+							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+						</form></tr>					
+						<tr th:each="pacote : ${pacotes}">
 							<td th:text="${pacote.id}"></td>
 							<td th:text="${pacote.cidade}"></td>
 							<td th:text="${pacote.estado}"></td>
@@ -50,28 +66,25 @@
 							<td th:text="${pacote.partida}"></td>
 							<td th:text="${pacote.duracao}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
-							<td th:text="${pacote.agencia.cnpj}"></td>
+							<td th:text="${pacote.agencia.nome}"></td>
 							<td th:text="${pacote.descricao}"></td>
-							<!-- <td th:each="imagem : ${imagens}">
-								<img th:src="${imagem.link}" style="width:10px; height:10px;">
-							</td>--> <!-- TO DO: loop para imagens -->
+							<td>
+								<img th:each="imagem : ${imagens}" th:src="${imagem.link}" style="width:10px; height:10px;">
+							</td> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
-								<a sec:authorize="hasRole('ROLE_AGENCIA')" class="btn btn-info btn-sm"
-									th:href="@{/pacotes/editar/{id} (id=${pacote.id}) }" role="button"> 
+								<a class="btn btn-info btn-sm"
+									th:href="@{/compra/detalhes/{id} (id=${pacote.id}) }" role="button"> 
+									<span class="oi oi-brush" th:title="#{link.comprar.label}" aria-hidden="true"></span>
+								</a>
+
+								<a class="btn btn-info btn-sm"
+									th:href="@{/pacote/editar/{id} (id=${pacote.id}) }" role="button"> 
 									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"></span>
 								</a>
-								<button sec:authorize="hasRole('ROLE_AGENCIA')" th:id="${#strings.concat('btn_pacotes/excluir/',pacote.id)}" 
+								<button th:id="${#strings.concat('btn_pacote/excluir/',pacote.id)}" 
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
 									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
 								</button>
-								<!-- <button th:id="${#strings.concat('btn_compra/detalhes/',pacote.id)}" 
-									type="button"  class="btn btn-info btn-sm" data-toggle="tooltip"  data-target="right">
-									<span class="oi oi-dial" th:title="#{link.ver.label}" aria-hidden="true"></span>
-								</button> -->
-							 	<a class="btn btn-info btn-sm"
-									th:href="@{/compra/detalhes/{id} (id=${pacote.id}) }" role="button"> 
-									<span class="oi oi-dial" th:title="#{link.ver.label}" aria-hidden="true"></span>
-								</a>
 							</td>
 						</tr>
 					</tbody>

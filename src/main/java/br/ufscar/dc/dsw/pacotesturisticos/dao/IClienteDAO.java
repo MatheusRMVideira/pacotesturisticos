@@ -9,11 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 @SuppressWarnings("unchecked")
 public interface IClienteDAO extends CrudRepository<Cliente, Long>{
     Cliente findById(long id);
-    Cliente findByCpf(String cpf);
     List<Cliente> findAll();
     Cliente save(Cliente cliente);
     void deleteById(long id);
 
     @Query("SELECT c FROM Cliente c WHERE c.email = :email")
     public Cliente findByEmail(@Param("email") String email);
+    @Query("SELECT c FROM Cliente c WHERE c.cpf = :cpf")
+    public Cliente findByCpf(@Param("cpf") String cpf);
 }
