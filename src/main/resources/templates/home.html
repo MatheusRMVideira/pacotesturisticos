@@ -4,6 +4,17 @@
 </head>
 <body>
 	<section class="layout-content" layout:fragment="corpo">
+	
+		<nav class="navbar navbar-expand-md bg-light">
+			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<i class="oi oi-caret-right"></i>
+						<span th:text="#{home.label}"></span>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
 		<div class="container" style="text-align: center;">
 			<h1 th:text="#{title.label}">Pacotes Turísticos</h1>
