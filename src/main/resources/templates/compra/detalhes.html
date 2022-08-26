@@ -18,70 +18,68 @@
 			</div>
 		</nav>
 
-		<div class="container" id="cadastro">
+		<div class="container" id="listagem">
 
 			<div th:replace="fragments/alert"></div>
 
-			<form th:action="@{/compra/insere}" th:object="${compra}"
+
+
+			<!-- <div th:replace="fragments/validacao :: validacao"></div> -->
+
+			<div class="table-responsive">
+
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<!-- <th>#</th> -->
+							<th th:text="#{pacote.cidade.label}"></th>
+							<th th:text="#{pacote.estado.label}"></th>
+							<th th:text="#{pacote.pais.label}"></th>
+							<th th:text="#{pacote.dataPartida.label}"></th>
+							<th th:text="#{pacote.duracao.label}"></th>
+							<th th:text="#{pacote.preco.label}"></th>
+							<th th:text="#{pacote.agencia.label}"></th>
+							<th th:text="#{pacote.descricao.label}"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						<!--	<td>
+								<input type="radio" th:id="${pacote.id}" name="pacote" th:value="${pacote.id}" th:field="*{pacote}" required>
+							</td> -->
+							<!-- <td th:text="${compra.id}"></td> -->
+							<td th:text="${pacote.cidade}"></td> 
+							<td th:text="${pacote.estado}"></td>
+							<td th:text="${pacote.pais}"></td>
+							<td th:text="${pacote.partida}"></td>
+							<td th:text="${pacote.duracao}"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
+							<td th:text="${pacote.agencia.nome}"></td>
+							<td th:text="${pacote.descricao}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<br>
+				<!-- <span th:text="#{pacote.imagem.label}"></span>
+						<p th:each="imagem ${pacote.imagens.link}">
+							<img th:src="${imagem.link}">
+						</p> -->
+				<!-- <div class="invalid-feedback">
+							<span th:errors="*{compra}"></span>
+						</div> -->
+			</div>
+			<form th:action="@{/compra/inserir}" th:object="${compra}"
 				method="POST">
-
-				<div th:replace="fragments/validacao :: validacao"></div>
-
 				<div class="form-row">
-					<div class="form-group col-md-12">
-						
-						<table class="table table-striped table-hover table-sm">
-							<thead>
-								<tr>
-									<th class="bg-warning">#</th>
-									<th class="bg-warning" th:text="#{pacote.cidade.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.estado.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.pais.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.partida.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.duracao.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.preco.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.descricao.label}"></th>
-									<th class="bg-warning" th:text="#{agencia.nome.label}"></th>
-									<th class="bg-warning" th:text="#{pacote.imagens.label}"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td th:text="${compra.pacote.id}"></td>
-									<td th:text="${compra.pacote.cidade}"></td>
-									<td th:text="${compra.pacote.estado}"></td>
-									<td th:text="${compra.pacote.pais}"></td>
-									<td th:text="${compra.pacote.partida}"></td>
-									<td th:text="${compra.pacote.duracao}"></td>
-									<td th:text="${compra.pacote.preco}"></td>
-									<td th:text="${compra.pacote.descricao}"></td>
-									<td th:text="${compra.pacote.agencia.nome}"></td>
-									<td>
-										<img th:each="imagem : ${compra.pacote.imagens}" th:src="${imagem.link}" style="width:10px; height:10px;">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="10">
-										<label for="valor" th:text="#{compra.valor.label}"></label>
-										<input type="number" name="valor" value="${compra.valor}" class="form-control" placeholder="${compra.pacote.preco}">
-										<input type="submit" class="btn btn-primary btn-md" value="${compra.cadastrar.label}">
-									</td>
-								</tr>
-							</tbody>
-						</table>
-
-						<div class="invalid-feedback">
-							<span th:errors="*{valor}"></span>
-						</div>
+					<div class="form-group col-md-6">
+	
+						 <!-- <input type="hidden" th:field="*{usuario}" id="cliente"> -->
+							<!-- <input type="hidden" th:field="*{valor}" id="valor"> -->
+			
+						<button type="submit" th:text="#{button.comprar.label}"
+							class="btn btn-primary btn-sm"></button>
 					</div>
 				</div>
-				<input type="hidden" id="cliente" th:field="*{cliente}" />
-				<input type="hidden" id="pacote" th:field="*{pacote}" />
-				<input type="hidden" id="ativo" th:field="*{ativo}" />
-				<input type="hidden" id="id" th:field="*{id}" />
-
-				<button type="submit" th:text="#{button.salvar.label}"
-					class="btn btn-primary btn-sm"></button>
 			</form>
 		</div>
 	</section>

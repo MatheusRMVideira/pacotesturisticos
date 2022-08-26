@@ -26,12 +26,12 @@
 
 			<form
 				th:action="${pacote.id == null} ? @{/pacote/salvar} : @{/pacote/editar}"
-				th:object="${pacote}" method="POST">
+				th:object="${pacote}" method="POST" enctype="multipart/form-data">
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.cidade.label}" for="cidade"></label> 
-						<input type="text" class="form-control" id="cidade" placeholder="#{pacode.cidade.label}"
+						<input type="text" class="form-control" id="cidade" placeholder="Cidade"
 							autofocus="autofocus" th:field="*{cidade}"
 							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
 						
@@ -42,7 +42,7 @@
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.estado.label}" for="estado"></label> 
-						<input type="text" class="form-control" id="estado" placeholder="#{pacode.estado.label}"
+						<input type="text" class="form-control" id="estado" placeholder="Estado"
 							autofocus="autofocus" th:field="*{estado}"
 							th:classappend="${#fields.hasErrors('estado')} ? is-invalid" />
 						
@@ -83,6 +83,7 @@
 							<span th:errors="*{duracao}"></span>
 						</div>
 					</div>
+
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.preco.label}" for="preco"></label> 
 						<input type="number" class="form-control" id="preco" placeholder="Preco"
@@ -104,7 +105,7 @@
 							</div>
 						</div>
 					</div>
-
+					
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.descricao.label}" for="descricao"></label> 
 						<input type="text" class="form-control" id="descricao" placeholder="Descrição"
@@ -115,6 +116,128 @@
 							<span th:errors="*{descricao}"></span>
 						</div>
 					</div>
+					
+					<div class="form-group col-md-6">
+						<label th:text="#{pacote.imagem.label}" for="imagem"></label> 
+						<!-- <input type="file" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" /> -->
+						 	</br><input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<!-- <div class="form-group col-md-6">
+						<label th:text="#{pacote.imagem.label}" for="imagem"></label> 
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+						 	<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+							<input type="file" id="imagem" multiple="multiple" />
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div> 
+					
+					<div class="form-group col-md-6">
+						
+						<input type="text" class="form-control" id="imagem" placeholder="Imagem"
+							autofocus="autofocus" th:field="*{imagens}"
+							th:classappend="${#fields.hasErrors('imagens')} ? is-invalid" />
+						 	<input type="file" id="imagem" multiple="multiple" /> 
+
+						<div class="invalid-feedback">
+							<span th:errors="*{imagens}"></span>
+						</div>
+					</div> -->
+
+				</div>
 
 				<input type="hidden" id="id" th:field="*{id}" />
 				<button type="submit" th:text="#{button.salvar.label}"
