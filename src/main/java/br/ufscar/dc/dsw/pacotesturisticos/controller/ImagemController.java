@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.hibernate.annotations.Parameter;
@@ -45,26 +46,40 @@ public class ImagemController {
     private IPacoteService pacoteService;
 
     @PutMapping("/salvar/{id}")
-    public void uploadImagem(@RequestParam("imagens") MultipartFile[] imagemFile, @PathVariable("id") Long pacoteId){
+    public String uploadImagem(@RequestParam("imagens") MultipartFile[] imagemFile, @PathVariable("id") Long pacoteId, ModelMap model){
+        Pacote pacote = pacoteService.findById(pacoteId);
         try {
             for (MultipartFile multipartFile : imagemFile) {
+                if(pacote.getImagens().size() == 10){
+                    model.addAttribute("fail", "Você já possui 10 imagens para este pacote");
+                    return "redirect:/pacote/editar/" + pacote.getId();
+                }
                 byte[] img = multipartFile.getBytes();
                 Imagem imagem = new Imagem();
                 imagem.setByteStream(img);
-                imagem.setPacote(pacoteService.findById(pacoteId));
+                imagem.setPacote(pacote);
                 imagemService.save(imagem);
             }
 
         } catch (IOException e){
             e.printStackTrace();
         }
+        return "redirect:/pacote/editar/" + pacote.getId();
     }
 
-    @GetMapping("/listar/{id}")
-    public String listar(@PathVariable("id") Long pacoteId, ModelMap model){
-        Pacote pacote = pacoteService.findById(pacoteId);
-        model.addAttribute("pacote", pacote);
-        model.addAttribute("imagens", pacote.getImagens());
-        return "imagem/listar";
+    @GetMapping("/display/{id}")
+    public void displayImagem(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
+        Imagem imagem = imagemService.findById(id);
+        response.setContentType(imagem.getTipo());
+        response.getOutputStream().write(imagem.getByteStream());
+        response.getOutputStream().close();
     }
+
+    @GetMapping("/excluir/{pacoteId}/{id}")
+    public String excluir(@PathVariable("pacoteId") Long pacoteId, @PathVariable("id") Long id, RedirectAttributes attributes){
+        imagemService.deleteById(id);
+        attributes.addFlashAttribute("mensagem", "Imagem excluida com sucesso!");
+        return "redirect:/pacote/editar/" + pacoteId;
+    }
+
 }

@@ -26,7 +26,7 @@
 
 			<form
 				th:action="${pacote.id == null} ? @{/pacote/salvar} : @{/pacote/editar}"
-				 method="POST" enctype="multipart/form-data">
+				 method="POST" enctype="multipart/form-data" id="form">
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -106,13 +106,34 @@
 							<span th:errors="${pacote.descricao}"></span>
 						</div>
 					</div>
+
+					<div th:if="${pacote.id != null}"class="form-group col-md-6">
+						<label th:text="#{pacote.imagem.label}" for="imagem"></label>
+						<div th:each="imagem, i : ${pacote.imagens}" >
+							<div th:id="${'imagem' + imagem.id}">
+							<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="100" height="100">
+							<a onclick="apagaImagem(this)"
+							th:id="${imagem.id}" name="imagemDelete"
+							class="btn btn-danger btn-sm" ><span class="oi oi-trash"></a>
+							</div>
+						</div>
+						<input type="hidden" id="apagadas" name="apagadas" value=""/>
+					</div>
+
+					
+
+					<div class="form-group col-md-6 preview"></div>
 					
 					<div class="form-group col-md-6">
 							<input type="file" th:value="${imagemFile}" name="imagemFile" multiple
-							accept="image/png, image/jpeg" max-size="2000">
+							accept="image/png, image/jpeg" max-size="2000" id="upload">		
 					</div>
-					
+
+				<div th:if="${pacote.id != null}">
+					<input type="hidden" id="agencia" th:field="${pacote.agencia}" name="agencia" />
+				</div>
 				<input type="hidden" id="id" th:field="${pacote.id}" name="id" />
+				<input type="hidden" id="imagens" th:field="${pacote.imagens}" name="imagens" />
 				<button type="submit" th:text="#{button.salvar.label}"
 					class="btn btn-primary btn-sm"></button>
 			</form>

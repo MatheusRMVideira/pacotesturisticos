@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Base64;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.hibernate.annotations.Parameter;
@@ -98,28 +99,37 @@ public class PacoteController {
     }
 
     @PostMapping("/editar")
-    public String editar(@ModelAttribute(value="pacote") @Valid Pacote pacote, BindingResult resultPacote, @ModelAttribute("imagemFile") MultipartFile[] imagemFile, BindingResult resultImagemFile,  RedirectAttributes attributes, Authentication authentication) {
+    public String editar(@ModelAttribute(value="pacote") @Valid Pacote pacote, BindingResult resultPacote, @ModelAttribute("imagemFile[]") MultipartFile[] imagemFile, @ModelAttribute("apagadas") String imagemApagar, BindingResult resultImagemFile,  RedirectAttributes attributes, Authentication authentication) {
         if (resultPacote.hasErrors() || resultImagemFile.hasErrors()) {
             return "pacote/cadastro";
         }
         Agencia userAgencia = getAgencia();
-        if(pacote.getAgencia().getId() != userAgencia.getId()){
-            attributes.addFlashAttribute("fail", "Você não pode editar um pacote que não seja seu!");
+        if(pacote.getAgencia().getId().longValue() != userAgencia.getId().longValue()){
+            attributes.addFlashAttribute("fail", pacote.getAgencia().getId().toString() + " " + userAgencia.getId().toString());
             return "redirect:/pacote/listar";
         }
-        pacote.setAgencia(userAgencia);
         pacoteService.save(pacote);
         try{
             for (MultipartFile multipartFile : imagemFile) {
                 byte[] img = multipartFile.getBytes();
-                Imagem imagem = new Imagem();
-                imagem.setTipo(multipartFile.getContentType());
-                imagem.setByteStream(img);
-                imagem.setPacote(pacote);
-                imagemService.save(imagem);
+                String tipo = multipartFile.getContentType();
+                if(tipo == "image/jpeg" || tipo == "image/jpg" || tipo == "image/png" || tipo == "image/gif"){
+                    Imagem imagem = new Imagem();
+                    imagem.setTipo(tipo);
+                    imagem.setByteStream(img);
+                    imagem.setPacote(pacote);
+                    imagemService.save(imagem);
+                }
             }
         } catch (IOException e) {
                 e.printStackTrace();
+        }
+        //imagemApagar ="1,2,3" -> 1,2,3
+        if(!imagemApagar.isEmpty()){
+            String[] imagensApagar = imagemApagar.split(",");
+            for(String id : imagensApagar){
+                imagemService.deleteById(Long.parseLong(id));
+            }
         }
         attributes.addFlashAttribute("sucess", "Pacote editado com sucesso!");
         return "redirect:/pacote/cadastrar";

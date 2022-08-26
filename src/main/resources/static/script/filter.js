@@ -129,3 +129,30 @@ function changeAtivo(column){
 function compraPacote(pacoteId){
     window.location.href = "../compra/apresentacao?id=" + pacoteId;
 }
+
+$(function() {
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+        if (input.files) {
+            document.getElementsByClassName("preview")[0].innerHTML = "";
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $($.parseHTML("<img width='100' height='100'>")).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+    $('#upload').on('change', function() {
+        imagesPreview(this, 'div.preview');
+    });
+});
+
+var apagadas = "";
+function apagaImagem(button){
+    button.parentElement.style.display = 'none';
+    apagadas += button.id + ",";
+    //append apagadas to hidden input field in form
+    document.getElementById("apagadas").value = apagadas;
+}
