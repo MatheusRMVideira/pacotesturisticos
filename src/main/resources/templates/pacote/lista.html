@@ -69,14 +69,17 @@
 							<td th:text="${pacote.agencia.nome}"></td>
 							<td th:text="${pacote.descricao}"></td>
 							<td>
-								<img th:each="imagem : ${imagens}" th:src="${imagem.link}" style="width:10px; height:10px;">
-							</td> <!-- TO DO: loop para imagens -->
+							<div th:each="imagem : ${pacote.imagens}">
+								<img th:src="@{'data:'+${imagem.tipo}+';base64, '+${imagem.byteStream}}" width="100" height="100">
+							</div></td> <!-- TO DO: loop para imagens -->
 							<td colspan="2">
+								<div sec:authorize="!hasRole('ROLE_AGENCIA')">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/compra/detalhes/{id} (id=${pacote.id}) }" role="button"> 
-									<span class="oi oi-brush" th:title="#{link.comprar.label}" aria-hidden="true"></span>
-								</a>
-
+									<span class="oi oi-cart" th:title="#{link.comprar.label}" aria-hidden="true"></span>
+								</a></div>
+								<div sec:authorize="hasRole('ROLE_AGENCIA')">
+								<div th:if="${pacote.agencia == #request.userPrincipal.principal.getAgencia}">
 								<a class="btn btn-info btn-sm"
 									th:href="@{/pacote/editar/{id} (id=${pacote.id}) }" role="button"> 
 									<span class="oi oi-brush" th:title="#{link.editar.label}" aria-hidden="true"></span>
@@ -85,6 +88,7 @@
 									type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
 									<span class="oi oi-circle-x" th:title="#{link.excluir.label}" aria-hidden="true"></span>
 								</button>
+								</div>
 							</td>
 						</tr>
 					</tbody>

@@ -26,97 +26,92 @@
 
 			<form
 				th:action="${pacote.id == null} ? @{/pacote/salvar} : @{/pacote/editar}"
-				th:object="${pacote}" method="POST">
+				 method="POST" enctype="multipart/form-data">
 
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.cidade.label}" for="cidade"></label> 
-						<input type="text" class="form-control" id="cidade" placeholder="#{pacode.cidade.label}"
-							autofocus="autofocus" th:field="*{cidade}"
-							th:classappend="${#fields.hasErrors('cidade')} ? is-invalid" />
+						<input type="text" class="form-control" id="cidade" placeholder="Cidade"
+							autofocus="autofocus" th:field="${pacote.cidade}" name="cidade"
+							th:classappend="${#fields.hasErrors('pacote.cidade')} ? is-invalid" />
 						
 						<div class="invalid-feedback">
-							<span th:errors="*{cidade}"></span>
+							<span th:errors="${pacote.cidade}"></span>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.estado.label}" for="estado"></label> 
-						<input type="text" class="form-control" id="estado" placeholder="#{pacode.estado.label}"
-							autofocus="autofocus" th:field="*{estado}"
-							th:classappend="${#fields.hasErrors('estado')} ? is-invalid" />
+						<input type="text" class="form-control" id="estado" placeholder="Estado"
+							autofocus="autofocus" th:field="${pacote.estado}" name="estado"
+							th:classappend="${#fields.hasErrors('pacote.estado')} ? is-invalid" />
 						
 						<div class="invalid-feedback">
-							<span th:errors="*{estado}"></span>
+							<span th:errors="${pacote.estado}"></span>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.pais.label}" for="pais"></label> 
 						<input type="text" class="form-control" id="pais" placeholder="País"
-							autofocus="autofocus" th:field="*{pais}"
-							th:classappend="${#fields.hasErrors('pais')} ? is-invalid" />
+							autofocus="autofocus" th:field="${pacote.pais}" name="pais"
+							th:classappend="${#fields.hasErrors('pacote.pais')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{pais}"></span>
+							<span th:errors="${pacote.pais}"></span>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.dataPartida.label}" for="partida"></label> 
 						<input type="date" class="form-control" id="partida" placeholder="Data de Partida"
-							autofocus="autofocus" th:field="*{partida}"
-							th:classappend="${#fields.hasErrors('partida')} ? is-invalid" />
+							autofocus="autofocus" th:field="${pacote.partida}" name="partida"
+							th:classappend="${#fields.hasErrors('pacote.partida')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{partida}"></span>
+							<span th:errors="${pacote.partida}"></span>
 						</div>
 					</div>
 
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.duracao.label}" for="duracao"></label> 
-						<input type="number" class="form-control" id="duracao" placeholder="Duração"
-							autofocus="autofocus" th:field="*{duracao}"
-							th:classappend="${#fields.hasErrors('duracao')} ? is-invalid" />
+						<input type="text" class="form-control" id="duracao" placeholder="Duração"
+							autofocus="autofocus" th:field="${pacote.duracao}" name="duracao"
+							th:classappend="${#fields.hasErrors('pacote.duracao')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{duracao}"></span>
+							<span th:errors="${pacote.duracao}"></span>
 						</div>
 					</div>
+
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.preco.label}" for="preco"></label> 
-						<input type="number" class="form-control" id="preco" placeholder="Preco"
-							autofocus="autofocus" th:field="*{preco}"
-							th:classappend="${#fields.hasErrors('preco')} ? is-invalid" />
-
+						<input type="text" class="form-control" id="preco" placeholder="Preço" name="preco"
+							data-mask="000000,00" data-mask-reverse="true" th:field="${pacote.preco}" 
+							th:classappend="${#fields.hasErrors('pacote.preco')} ? is-invalid" />
+						
 						<div class="invalid-feedback">
-							<span th:errors="*{preco}"></span>
+							<span th:errors="${pacote.preco}"></span>
 						</div>
 					</div>
-					<div th:each="i : ${#numbers.sequence(0,9)}">
-						<label th:text="#{pacote.imagens.label}" for="imagem"></label>
-						<div class="form-group col-md-6">
-							<input type="text" class="form-control-file" id="*{imagens.id}" placeholder="Imagem"
-								th:field="*{imagens[i].link}" th:classappend="${#fields.hasErrors('imagens[i]')} ? is-invalid"/>
-
-							<div class="invalid-feedback">
-								<span th:errors="*{imagens[i]}"></span>
-							</div>
-						</div>
-					</div>
-
+					
 					<div class="form-group col-md-6">
 						<label th:text="#{pacote.descricao.label}" for="descricao"></label> 
 						<input type="text" class="form-control" id="descricao" placeholder="Descrição"
-							autofocus="autofocus" th:field="*{descricao}"
-							th:classappend="${#fields.hasErrors('descricao')} ? is-invalid" />
+							autofocus="autofocus" th:field="${pacote.descricao}" name="descricao"
+							th:classappend="${#fields.hasErrors('pacote.descricao')} ? is-invalid" />
 
 						<div class="invalid-feedback">
-							<span th:errors="*{descricao}"></span>
+							<span th:errors="${pacote.descricao}"></span>
 						</div>
 					</div>
-
-				<input type="hidden" id="id" th:field="*{id}" />
+					
+					<div class="form-group col-md-6">
+							<input type="file" th:value="${imagemFile}" name="imagemFile" multiple
+							accept="image/png, image/jpeg" max-size="2000">
+					</div>
+					
+				<input type="hidden" id="id" th:field="${pacote.id}" name="id" />
 				<button type="submit" th:text="#{button.salvar.label}"
 					class="btn btn-primary btn-sm"></button>
 			</form>

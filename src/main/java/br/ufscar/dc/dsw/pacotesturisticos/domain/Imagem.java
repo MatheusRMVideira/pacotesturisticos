@@ -1,6 +1,7 @@
 package br.ufscar.dc.dsw.pacotesturisticos.domain;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -21,20 +22,24 @@ import org.springframework.format.annotation.NumberFormat.Style;
 @Table(name = "Imagem")
 public class Imagem extends AbstractEntity<Long>{
     
-    @NotBlank(message = "{NotBlank.imagem.link}")
+    @Lob
     @Column(nullable = true)
-    private String link;
+    private byte[] byteStream;
+
+    @NotNull(message = "{NotNull.imagem.tipo}")
+    private String tipo;
 
     @ManyToOne
     @JoinColumn(name = "pacote_id")
     private Pacote pacote;
 
-    public String getLink() {
-        return link;
+    
+    public byte[] getByteStream(){
+        return byteStream;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setByteStream(byte[] byteStream){
+        this.byteStream = byteStream;
     }
 
     public Pacote getPacote() {
@@ -45,4 +50,15 @@ public class Imagem extends AbstractEntity<Long>{
         this.pacote = pacote;
     }
     
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getBase64(){
+        return new String(Base64.getEncoder().encode(byteStream));
+    }
 }
