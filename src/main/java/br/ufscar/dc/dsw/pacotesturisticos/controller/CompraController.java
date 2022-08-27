@@ -48,6 +48,12 @@ public class CompraController {
         if (result.hasErrors()) {
             return "compra/detalhes";
         }
+		Pacote pacote = pacoteService.findById(id);
+		LocalDate dataPartida = LocalDate.parse(pacote.getPartida());
+        if(dataPartida.isBefore(LocalDate.now())){
+            attributes.addFlashAttribute("fail", "Não é possível comprar uma viagem que já aconteceu");
+            return "redirect:/pacote/listar";
+        }
         Compra compra = new Compra();
         compra.setPacote(pacoteService.findById(id));
         compra.setValor(valor);

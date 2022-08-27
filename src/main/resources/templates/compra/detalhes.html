@@ -36,7 +36,7 @@
 				<p><b th:text="#{pacote.descricao.label}"></b><span th:text="${': ' + pacote.descricao}"></span></p>
 				<p><b th:text="#{pacote.imagem.label}"></b></p>
 				<p th:each="imagem : ${pacote.imagens}">
-					<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="100" height="100">
+					<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="300" height="300">
 				</p>
 				
 			</div>
