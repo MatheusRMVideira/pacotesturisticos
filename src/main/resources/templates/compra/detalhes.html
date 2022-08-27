@@ -26,68 +26,29 @@
 
 			<!-- <div th:replace="fragments/validacao :: validacao"></div> -->
 
-			<div class="table-responsive">
-
-				<table class="table table-striped table-hover table-sm">
-					<thead>
-						<tr>
-							<!-- <th>#</th> -->
-							<th th:text="#{pacote.cidade.label}"></th>
-							<th th:text="#{pacote.estado.label}"></th>
-							<th th:text="#{pacote.pais.label}"></th>
-							<th th:text="#{pacote.dataPartida.label}"></th>
-							<th th:text="#{pacote.duracao.label}"></th>
-							<th th:text="#{pacote.preco.label}"></th>
-							<th th:text="#{pacote.agencia.label}"></th>
-							<th th:text="#{pacote.descricao.label}"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-						<!--	<td>
-								<input type="radio" th:id="${pacote.id}" name="pacote" th:value="${pacote.id}" th:field="*{pacote}" required>
-							</td> -->
-							<!-- <td th:text="${compra.id}"></td> -->
-							<td th:text="${pacote.cidade}"></td> 
-							<td th:text="${pacote.estado}"></td>
-							<td th:text="${pacote.pais}"></td>
-							<td th:text="${pacote.partida}"></td>
-							<td th:text="${pacote.duracao}"></td>
-							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
-							<td th:text="${pacote.agencia.nome}"></td>
-							<td th:text="${pacote.descricao}"></td>
-							<!-- <td>
-								<div th:each="imagem : ${pacote.imagens}">
-									<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="100" height="100">
-								</div></td> -->
-						</tr>
-					</tbody>
-				</table>
-				<h5 th:text="#{pacote.imagem.label}"></h5>
-				<div th:each="imagem : ${pacote.imagens}">
-					<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="300" height="300">
-				</div>
-				<br>
-				<!-- <span th:text="#{pacote.imagem.label}"></span>
-						<p th:each="imagem ${pacote.imagens.link}">
-							<img th:src="${imagem.link}">
-						</p> -->
-				<!-- <div class="invalid-feedback">
-							<span th:errors="*{compra}"></span>
-						</div> -->
+			<div align="center">
+				<h1 th:text="#{compra.detalhes.label}"></h1>
+				<p><b th:text="#{pacote.id.label}"></b><span th:text="${': ' + pacote.id}"></span></p>
+				<p><b th:text="#{pacote.destino.label}"></b><span th:text="${': ' + pacote.cidade + ', ' + pacote.estado + ', ' + pacote.pais}"></span></p>
+				<p><b th:text="#{pacote.partida.label}"></b><span th:text="${': ' + pacote.partida}"></span></p>
+				<p><b th:text="#{pacote.duracao.label}"></b><span th:text="${': ' + pacote.duracao}"></span></p>
+				<p><b th:text="#{pacote.preco.label}"></b><span th:text="${': ' + pacote.preco}"></span></p>
+				<p><b th:text="#{pacote.descricao.label}"></b><span th:text="${': ' + pacote.descricao}"></span></p>
+				<p><b th:text="#{pacote.imagem.label}"></b></p>
+				<p th:each="imagem : ${pacote.imagens}">
+					<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="100" height="100">
+				</p>
+				
 			</div>
-			<form th:action="@{/compra/inserir}" th:object="${compra}"
+			<form th:action="@{/compra/inserir}"
 				method="POST">
-				<div class="form-row">
-					<div class="form-group col-md-6">
-	
-						   <!-- <input type="hidden" th:field="${cliente}" id="cliente"> -->
-							<!-- <input type="hidden" th:field="*{valor}" id="valor"> -->
-						<input type="hidden" id="id" th:field="*{id}" />
-						<!-- <input type="hidden" id="preco" th:field="${pacote.preco}" /> -->
-						<button type="submit" th:text="#{button.comprar.label}"
-							class="btn btn-primary btn-sm"></button>
-					</div>
+				<div align="center">	
+					   <!-- <input type="hidden" th:field="${cliente}" id="cliente"> -->
+					<input type="number" th:field="${pacote.preco}" id="valor">
+					<input type="hidden" id="id" th:field="${pacote.id}" />
+					<!-- <input type="hidden" id="preco" th:field="${pacote.preco}" /> -->
+					<button type="submit" th:text="#{button.comprar.label}"
+						class="btn btn-primary btn-sm"></button>
 				</div>
 			</form>
 		</div>

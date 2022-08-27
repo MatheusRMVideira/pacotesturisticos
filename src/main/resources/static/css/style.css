@@ -32,6 +32,10 @@ body {
 	padding-top: 20px;
 }
 
+.cancelado {
+    background-color: #ff9767 !important;
+}
+
 /*
  * Sidebar
  */
@@ -119,3 +123,4 @@ body {
 	color: #744848;
 	text-align: center;
 }
+

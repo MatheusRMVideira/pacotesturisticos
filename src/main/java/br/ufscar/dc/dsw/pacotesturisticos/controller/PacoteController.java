@@ -113,7 +113,7 @@ public class PacoteController {
             for (MultipartFile multipartFile : imagemFile) {
                 byte[] img = multipartFile.getBytes();
                 String tipo = multipartFile.getContentType();
-                if(tipo == "image/jpeg" || tipo == "image/jpg" || tipo == "image/png" || tipo == "image/gif"){
+                if(tipo.contains("image")){
                     Imagem imagem = new Imagem();
                     imagem.setTipo(tipo);
                     imagem.setByteStream(img);

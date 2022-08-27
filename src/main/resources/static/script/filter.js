@@ -111,20 +111,7 @@ function limpar(){
 
 }
 
-function changeAtivo(column){
-    var table, tr, td, i, txtValue;
-    table = document.getElementById("tabela");
-    tr = table.getElementsByTagName("tr");
-    for (i = 2; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[column];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue == "falso") {
-                tr[i].addClass("cancelado");
-            }
-        }
-    }
-}
+
 
 function compraPacote(pacoteId){
     window.location.href = "../compra/apresentacao?id=" + pacoteId;
