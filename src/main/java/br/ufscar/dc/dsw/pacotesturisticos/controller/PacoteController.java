@@ -144,7 +144,7 @@ public class PacoteController {
             imagemService.deleteById(imagem.getId());
         }
         pacoteService.deleteById(id);
-        return "redirect:/pacote/lista";
+        return "redirect:/pacote/listar";
     }
 
     @GetMapping("/meus-pacotes")

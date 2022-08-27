@@ -8,9 +8,14 @@
 </head>
 <body>
 	<nav class="sidebar sidebar-open" th:fragment="nav-sidebar">
+		<ul class="nav nav-pills">
+			<li class="nav-item"><a class="nav-link " th:href="@{/home}"> <i
+					class="oi oi-home"></i> <span th:text="#{sidebar.link.home}"></span>
+			</a></li>
+		</ul>
 		<ul class="nav nav-pills" sec:authorize="!(hasRole('ROLE_AGENCIA') || hasRole('ROLE_ADMIN') || hasRole('ROLE_USER'))">
 			<li class="nav-item"><a class="nav-link " th:href="@{/login}"> <i
-					class="oi oi-home"></i> <span th:text="#{sidebar.link.login}"></span>
+					class="oi oi-account-login"></i> <span th:text="#{sidebar.link.login}"></span>
 			</a></li>
 		</ul>
 		<div sec:authorize="!hasRole('ROLE_AGENCIA')">
@@ -58,7 +63,6 @@
 				</a></li>
 			</ul>
 		</div>
- -->
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
 			<ul class="nav nav-pills">
 				<li class="nav-item"><span class="nav-link active"

@@ -56,13 +56,17 @@
 							<td th:text="|R$ ${#numbers.formatDecimal(pacote.preco,2,2,'COMMA')}|"></td>
 							<td th:text="${pacote.agencia.nome}"></td>
 							<td th:text="${pacote.descricao}"></td>
-							<td>
+							<!-- <td>
 								<div th:each="imagem : ${pacote.imagens}">
 									<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="100" height="100">
-								</div></td>
+								</div></td> -->
 						</tr>
 					</tbody>
 				</table>
+				<h5 th:text="#{pacote.imagem.label}"></h5>
+				<div th:each="imagem : ${pacote.imagens}">
+					<img th:src="@{/imagem/display/{id} (id=${imagem.id}) }" width="300" height="300">
+				</div>
 				<br>
 				<!-- <span th:text="#{pacote.imagem.label}"></span>
 						<p th:each="imagem ${pacote.imagens.link}">
@@ -77,9 +81,10 @@
 				<div class="form-row">
 					<div class="form-group col-md-6">
 	
-						 <!-- <input type="hidden" th:field="*{usuario}" id="cliente"> -->
+						   <!-- <input type="hidden" th:field="${cliente}" id="cliente"> -->
 							<!-- <input type="hidden" th:field="*{valor}" id="valor"> -->
-			
+						<input type="hidden" id="id" th:field="*{id}" />
+						<!-- <input type="hidden" id="preco" th:field="${pacote.preco}" /> -->
 						<button type="submit" th:text="#{button.comprar.label}"
 							class="btn btn-primary btn-sm"></button>
 					</div>
