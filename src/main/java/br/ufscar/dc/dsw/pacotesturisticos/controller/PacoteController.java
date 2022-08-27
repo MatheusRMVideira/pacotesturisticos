@@ -136,14 +136,16 @@ public class PacoteController {
     }
 
     @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable("id") Long id, ModelMap model) {
+    public String excluir(@PathVariable("id") Long id, ModelMap model, RedirectAttributes attributes) {
+        
+        for(Imagem imagem : imagemService.findByPacote(pacoteService.findById(id))){
+            imagemService.deleteById(imagem.getId());
+        }
         for(Compra compra : compraService.findByPacote(pacoteService.findById(id))){
             compraService.deleteById(compra.getId());
         }
-        for(Imagem imagem : imagemService.findByPacote(id)){
-            imagemService.deleteById(imagem.getId());
-        }
         pacoteService.deleteById(id);
+        attributes.addFlashAttribute("mensagem", "Pacote excluido com sucesso!");
         return "redirect:/pacote/listar";
     }
 
