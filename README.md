@@ -1,13 +1,12 @@
-# TO DO:
-- Fazer views de cadastro e listas
-- Fazer view de compra
-- Fazer lógica de compra
-- Fazer lógica das imagens (como fazer? upload ou link?)
-- Lista de pacote por agencia
-- Lista de compras de um cliente
-- Filtros de pacotes por destino, agencia ou data de partida
-- Filtro de pacotes por data vigente
-- LOGIN: administrador, cliente, agencia
-- Aparecer pacotes cancelados (tabela de compras)
-- Só cancelar pacotes com no minino 5 dias
-- Tratamento de erros
+# Pacotes Turisticos - Módulo 2
+Trabalho desenvolvido ao longo da disciplina de Desenvolvimento de Software para Web 1, ministrada pelo professor Doutor Alan Barias Valejo, do Departamento de Computação da Universidade Federal de São Carlos.
+
+Alunos envolvidos:
+
+Luana Menezes, 727345
+
+Matheus Rezende Milani Videira, 790809
+
+Pedro Morini da Mota, 795414
+
+Vanessa de Cássia Alves, 795314
