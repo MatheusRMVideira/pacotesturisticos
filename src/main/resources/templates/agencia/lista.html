@@ -39,11 +39,11 @@
 					</thead>
 					<tbody>
 						<tr><form>
-							<td><input type="number" class="filtro" id="id" onkeyup="filtro(0,'id')" placeholder="Pesquisar"></td>
-							<td><input type="text" class="filtro" id="email" onkeyup="filtro(1,'email')" placeholder="Pesquisar"></td>
-							<td><input type="text" class="filtro" id="cnpj" onkeyup="filtro(2,'cnpj')" placeholder="Pesquisar"></td>
-							<td><input type="text" class="filtro" id="nome" onkeyup="filtro(3,'nome')" placeholder="Pesquisar"></td>
-							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+							<td><input type="number" class="filtro" id="id" onkeyup="filtro(0,'id')" ></td>
+							<td><input type="text" class="filtro" id="email" onkeyup="filtro(1,'email')" ></td>
+							<td><input type="text" class="filtro" id="cnpj" onkeyup="filtro(2,'cnpj')" ></td>
+							<td><input type="text" class="filtro" id="nome" onkeyup="filtro(3,'nome')" ></td>
+							<td><input type="reset" th:value="#{filtro.limpar}" onclick="limpar()"></td>
 						</form></tr>
 						<tr th:each="agencia : ${agencias}">
 							<td th:text="${agencia.id}"></td>

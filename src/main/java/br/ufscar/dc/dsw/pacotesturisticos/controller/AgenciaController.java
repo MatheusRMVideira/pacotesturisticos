@@ -14,10 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Agencia;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Pacote;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Compra;
+import br.ufscar.dc.dsw.pacotesturisticos.domain.Imagem;
 import br.ufscar.dc.dsw.pacotesturisticos.domain.Cliente;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IAgenciaService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IPacoteService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.ICompraService;
+import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IImagemService;
 import br.ufscar.dc.dsw.pacotesturisticos.service.spec.IClienteService;
 
 @Controller
@@ -35,6 +37,9 @@ public class AgenciaController {
 
     @Autowired
     private IClienteService clienteService;
+
+    @Autowired
+    private IImagemService imagemService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -104,6 +109,9 @@ public class AgenciaController {
             for (Pacote pacote : pacoteService.findByAgencia(agenciaService.findById(id))) {
                 for(Compra compra : compraService.findByPacote(pacote)) {
                     compraService.deleteById(compra.getId());
+                }
+                for(Imagem imagem : imagemService.findByPacote(pacote)) {
+                    imagemService.deleteById(imagem.getId());
                 }
                 pacoteService.deleteById(pacote.getId());
             }

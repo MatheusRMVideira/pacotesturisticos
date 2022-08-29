@@ -14,10 +14,6 @@
 					</li>
 				</ul>
 			</div>
-			<a sec:authorize="hasRole('ROLE_AGENCIA')" class="btn btn-primary btn-md" th:href="@{/pacote/cadastrar}" role="button"> 
-				<span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span> 
-				<span th:text="#{pacote.cadastrar.label}"></span>
-			</a>
 		</nav>
 
 		<div class="container" id="listagem">
@@ -54,11 +50,11 @@
 							<td><input type="number" class="filtro" id="duracao" onkeyup="filtro(6, 'duracao')"></td>
 							<td><input type="text" class="filtro" id="preco" onkeyup="filtro(7, 'preco')" data-mask="000000,00" data-mask-reverse="true"></td>
 							<td><select class="filtroSelect" id="agencia" onchange="filtro(8, 'agencia')">
-									<option value="">Todas</option>
+									<option value="" th:text="#{filtro.agencia.todas}"></option>
 									<option th:each="agencia : ${agencias}" th:value="${agencia.nome}" th:text="${agencia.nome}"></option>
 								</select></td>
-							<td><input type="button" value="Data Vigente" onclick="filtroVigente(5)"></td>
-							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+							<td><input type="button" th:value="#{filtro.datavigente}" onclick="filtroVigente(5)"></td>
+							<td><input type="reset" th:value="#{filtro.limpar}" onclick="limpar()"></td>
 						</form></tr>					
 						<tr th:each="pacote : ${pacotes}">
 							<td>

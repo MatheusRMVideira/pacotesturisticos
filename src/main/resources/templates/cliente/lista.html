@@ -51,7 +51,7 @@
 							<td><input type="date" class="filtro" id="dataInicio" onchange="filtroData(6)">
 							<input type="date" class="filtro" id="dataInicio" onchange="filtroData(6)"></td>
 							<td><input type="text" class="filtro" id="tipo" onkeyup="filtro(7, 'tipo')"></td>
-							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+							<td><input type="reset" th:value="#{filtro.limpar}" onclick="limpar()"></td>
 							
 						</form></tr>
 						<tr th:each="cliente : ${clientes}">

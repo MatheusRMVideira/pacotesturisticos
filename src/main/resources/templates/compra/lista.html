@@ -55,11 +55,11 @@
 							<td><input type="text" class="filtro" id="preco" onkeyup="filtro(7, 'preco')" data-mask="000000,00" data-mask-reverse="true"></td>
 							<td><input type="text" class="filtro" id="valor" onkeyup="filtro(8, 'valor')" data-mask="000000,00" data-mask-reverse="true"></td>
 							<td><select class="filtroSelect" id="agencia" onchange="filtro(9, 'agencia')">
-									<option value="">Todas</option>
+									<option value="" th:text="#{filtro.agencia.todas}"></option>
 									<option th:each="agencia : ${agencias}" th:value="${agencia.nome}" th:text="${agencia.nome}"></option>
 								</select></td>
-							<td><input type="button" value="Data Vigente" onclick="filtroVigente(5)"></td>
-							<td><input type="reset" value="Limpar Filtros" onclick="limpar()"></td>
+							<td><input type="button" th:value="#{filtro.datavigente}" onclick="filtroVigente(5)"></td>
+							<td><input type="reset" th:value="#{filtro.limpar}" onclick="limpar()"></td>
 						</form></tr>
 						<tr th:each="compra : ${compras}" th:classappend="${!compra.ativo} ? cancelado : ativo">
 							<td>

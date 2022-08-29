@@ -27,9 +27,9 @@ function filtroData(column) {
     filterFim = filterFim.split("-");
 
     if(filterInicio == ""){
-        filterInicio[0] = "1900";
+        filterInicio[0] = "01";
         filterInicio[1] = "01";
-        filterInicio[2] = "01";
+        filterInicio[2] = "1900";
     }
 
     if(filterFim ==""){
@@ -46,7 +46,7 @@ function filtroData(column) {
             txtValue = td.textContent || td.innerText;
             txtValue = txtValue.split("-");
             //Condicao mais feia que ja escrevi na minha vida
-            if((txtValue[0] == filterInicio[0] && txtValue[1] == filterInicio[1] && txtValue[2] == filterInicio[2]) &&
+            if((txtValue[0] > filterInicio[0] || txtValue[0] == filterInicio[0] && txtValue[1] > filterInicio[1] || txtValue[0] == filterInicio[0] && txtValue[1] == filterInicio[1] && txtValue[2] >= filterInicio[2]) &&
             (txtValue[0] < filterFim[0] || txtValue[0] == filterFim[0] && txtValue[1] < filterFim[1] || txtValue[0] == filterFim[0] && txtValue[1] == filterFim[1] && txtValue[2] <= filterFim[2])){
                 tr[i].style.display = "";
             } else {
