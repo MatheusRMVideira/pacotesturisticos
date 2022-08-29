@@ -52,8 +52,8 @@
 							<td><input type="date" class="filtro" id="dataInicio" onchange="filtroData(5)">
 								<input type="date" class="filtro" id="dataFim" onchange="filtroData(5)"></td>
 							<td><input type="number" class="filtro" id="duracao" onkeyup="filtro(6, 'duracao')"></td>
-							<td><input type="number" class="filtro" id="preco" onkeyup="filtro(7, 'preco')"></td>
-							<td><input type="number" class="filtro" id="valor" onkeyup="filtro(8, 'valor')"></td>
+							<td><input type="text" class="filtro" id="preco" onkeyup="filtro(7, 'preco')" data-mask="000000,00" data-mask-reverse="true"></td>
+							<td><input type="text" class="filtro" id="valor" onkeyup="filtro(8, 'valor')" data-mask="000000,00" data-mask-reverse="true"></td>
 							<td><select class="filtroSelect" id="agencia" onchange="filtro(9, 'agencia')">
 									<option value="">Todas</option>
 									<option th:each="agencia : ${agencias}" th:value="${agencia.nome}" th:text="${agencia.nome}"></option>
@@ -77,8 +77,8 @@
 							<td th:text="${compra.pacote.pais}"></td>
 							<td th:text="${compra.pacote.partida}"></td>
 							<td th:text="${compra.pacote.duracao}"></td>
-							<td th:text="${compra.pacote.preco}"></td>
-							<td th:text="${compra.valor}"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(compra.pacote.preco,2,2,'COMMA')}|"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(compra.valor,2,2,'COMMA')}|"></td>
 							<td th:text="${compra.pacote.agencia.nome}"></td>
 							<td th:text="${compra.pacote.descricao}"></td>
 							<td th:each="imagem : ${compra.pacote.imagens}">
